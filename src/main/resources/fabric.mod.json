@@ -1,0 +1,54 @@
+{
+	"schemaVersion": 1,
+	"id": "endothermic",
+	"version": "${version}",
+	"name": "Endothermic",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/endothermic/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			{
+				"value": "archives.tater.endothermic.Endothermic",
+				"adapter": "kotlin"
+			}
+		],
+		"client": [
+			{
+				"value": "archives.tater.endothermic.EndothermicClient",
+				"adapter": "kotlin"
+			}
+		],
+		"fabric-datagen": [
+			{
+				"value": "archives.tater.endothermic.EndothermicDataGenerator",
+				"adapter": "kotlin"
+			}
+		]
+	},
+	"mixins": [
+		"endothermic.mixins.json",
+		{
+			"config": "endothermic.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.17.2",
+		"minecraft": "~1.21.8",
+		"java": ">=21",
+		"fabric-api": "*",
+		"fabric-language-kotlin": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
