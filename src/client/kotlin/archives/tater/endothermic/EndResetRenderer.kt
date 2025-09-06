@@ -7,20 +7,18 @@ import net.minecraft.client.render.RenderLayer
 import net.minecraft.client.render.VertexConsumer
 import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.client.world.ClientWorld
-import kotlin.math.log
-import kotlin.math.pow
+import net.minecraft.util.math.Vec3d
+import kotlin.math.abs
 
 object EndResetRenderer : WorldRenderEvents.AfterEntities, ClientTickEvents.EndWorldTick {
     var progress: Int = -1
 
-    const val MAX_RADIUS = 100.0
+    const val MAX_RADIUS = 64f
     const val LAYERS = 8
     const val HALF_HEIGHT = 1024f
-    const val EXPANSION_COEFFICIENT = 1f
-    const val EXPANSION_BASE = 1.05f
-    const val LAYER_OFFSET = 5
-    val MAX_PROGRESS = log(LAYERS * MAX_RADIUS / EXPANSION_COEFFICIENT + 1, EXPANSION_BASE.toDouble()).toInt() - LAYER_OFFSET * (1 - LAYERS)
-
+    const val LAYER_OFFSET = 4
+    const val MAX_PROGRESS = 200
+    const val OPACITY_DURATION = 8
 
     private fun VertexConsumer.vertex(matrix: MatrixStack.Entry, x: Float, y: Float, z: Float, alpha: Int) {
         vertex(matrix, x, y, z)
@@ -48,21 +46,36 @@ object EndResetRenderer : WorldRenderEvents.AfterEntities, ClientTickEvents.EndW
 
     override fun afterEntities(context: WorldRenderContext) {
         if (progress == -1) return
-        val progress = if (progress >= MAX_PROGRESS) progress.toFloat() else progress + context.tickCounter().getTickProgress(false)
+        val progress = if (progress >= MAX_PROGRESS) progress.toFloat() else progress + context.tickCounter()
+            .getTickProgress(false)
         val consumer = context.consumers()!!.getBuffer(RenderLayer.getLightning())
 
         val matrices = context.matrixStack()!!
         matrices.push()
         val cameraPos = context.camera().cameraPos
-        matrices.translate(0.5 - cameraPos.x, 0.0, 0.5 - cameraPos.z) // Always at (0, cameraY, 0)
+        matrices.translate(Vec3d(0.5 - cameraPos.x, 0.0, 0.5 - cameraPos.z)) // Always at (0, cameraY, 0)
         val matrix = matrices.peek()
-        consumer.apply {
-            repeat (LAYERS) {
-                val radius = (EXPANSION_COEFFICIENT * (EXPANSION_BASE.pow(progress + LAYER_OFFSET * (it + 1 - LAYERS)) - 1)) * (it + 1) / LAYERS
-//                val opacity = progress - LAYER_OFFSET * (it + 1 - LAYERS)
-                if (radius > 0)
-                    drawLayer(matrix, radius, 255 / LAYERS)
+        val outerLayer = progress.toInt() / LAYER_OFFSET
+        var overlay = 0
+        with (consumer) {
+            for (i in outerLayer - LAYERS - 1..outerLayer) {
+                val radius = (progress * MAX_RADIUS / MAX_PROGRESS + 8f) * (i + 1) / LAYERS
+                val opacity =
+                    (((progress - LAYER_OFFSET * (i + 1)) / OPACITY_DURATION).coerceIn(0f, 1f) * 255 / (LAYERS - 2)).toInt()
+                if (radius > 0 && opacity > 0) {
+                    if (radius > abs(cameraPos.x) && radius > abs(cameraPos.z)) {
+                        overlay += opacity
+                    } else
+                        drawLayer(matrix, radius, opacity)
+                }
             }
+        }
+        matrices.pop()
+
+        matrices.push()
+        matrices.multiply(context.camera().rotation)
+        if (overlay > 0) {
+            consumer.quad(matrices.peek(), -1f, -1f, -0.1f, 1f, 1f, -0.1f, overlay.coerceAtMost(255))
         }
         matrices.pop()
     }
