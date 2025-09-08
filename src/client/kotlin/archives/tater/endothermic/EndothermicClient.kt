@@ -15,6 +15,8 @@ object EndothermicClient : ClientModInitializer {
 		// This entrypoint is suitable for setting up client-specific logic, such as rendering.
         EndothermicRenderLayers.init()
 
+        WorldRenderEvents.AFTER_ENTITIES.register(CentralEndIslandSparkleRenderer)
+
 		WorldRenderEvents.AFTER_ENTITIES.register(EndResetRenderer)
 		ClientTickEvents.END_WORLD_TICK.register(EndResetRenderer)
         ClientWorldEvents.AFTER_CLIENT_WORLD_CHANGE.register(EndResetRenderer)
