@@ -1,8 +1,10 @@
 package archives.tater.endothermic
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientWorldEvents
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents
+import net.minecraft.client.MinecraftClient
 import net.minecraft.client.render.RenderLayer
 import net.minecraft.client.render.VertexConsumer
 import net.minecraft.client.util.math.MatrixStack
@@ -10,15 +12,23 @@ import net.minecraft.client.world.ClientWorld
 import net.minecraft.util.math.Vec3d
 import kotlin.math.abs
 
-object EndResetRenderer : WorldRenderEvents.AfterEntities, ClientTickEvents.EndWorldTick {
-    var progress: Int = -1
+object EndResetRenderer : WorldRenderEvents.AfterEntities, ClientTickEvents.EndWorldTick, ClientWorldEvents.AfterClientWorldChange {
+    private var progress: Int = -1
 
-    const val MAX_RADIUS = 64f
+    const val MAX_RADIUS = 32f
     const val LAYERS = 8
     const val HALF_HEIGHT = 1024f
     const val LAYER_OFFSET = 4
-    const val MAX_PROGRESS = 200
-    const val OPACITY_DURATION = 8
+    const val MAX_PROGRESS = 150
+    const val OPACITY_DURATION = 16
+
+    fun reset() {
+        progress = -1
+    }
+
+    fun start() {
+        progress = 0
+    }
 
     private fun VertexConsumer.vertex(matrix: MatrixStack.Entry, x: Float, y: Float, z: Float, alpha: Int) {
         vertex(matrix, x, y, z)
@@ -83,6 +93,13 @@ object EndResetRenderer : WorldRenderEvents.AfterEntities, ClientTickEvents.EndW
     override fun onEndTick(world: ClientWorld) {
         if (world.tickManager.shouldTick() && progress >= 0 && progress < MAX_PROGRESS)
             progress++
+    }
+
+    override fun afterWorldChange(
+        p0: MinecraftClient?,
+        p1: ClientWorld?
+    ) {
+        reset()
     }
 
 }
