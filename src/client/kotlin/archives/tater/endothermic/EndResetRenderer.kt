@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientWorldEvents
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents
 import net.minecraft.client.MinecraftClient
-import net.minecraft.client.render.RenderLayer
 import net.minecraft.client.render.VertexConsumer
 import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.client.world.ClientWorld
@@ -17,7 +16,7 @@ object EndResetRenderer : WorldRenderEvents.AfterEntities, ClientTickEvents.EndW
 
     const val MAX_RADIUS = 32f
     const val LAYERS = 8
-    const val HALF_HEIGHT = 1024f
+    const val HALF_HEIGHT = 2048f
     const val LAYER_OFFSET = 4
     const val MAX_PROGRESS = 150
     const val OPACITY_DURATION = 16
@@ -58,7 +57,7 @@ object EndResetRenderer : WorldRenderEvents.AfterEntities, ClientTickEvents.EndW
         if (progress == -1) return
         val progress = if (progress >= MAX_PROGRESS) progress.toFloat() else progress + context.tickCounter()
             .getTickProgress(false)
-        val consumer = context.consumers()!!.getBuffer(RenderLayer.getLightning())
+        val consumer = context.consumers()!!.getBuffer(EndothermicRenderLayers.FOUNTAIN)
 
         val matrices = context.matrixStack()!!
         matrices.push()
