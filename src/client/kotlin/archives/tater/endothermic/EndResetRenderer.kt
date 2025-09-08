@@ -4,22 +4,31 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientWorldEvents
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents
+import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement
 import net.minecraft.client.MinecraftClient
+import net.minecraft.client.gui.DrawContext
+import net.minecraft.client.render.RenderTickCounter
 import net.minecraft.client.render.VertexConsumer
 import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.client.world.ClientWorld
+import net.minecraft.util.math.ColorHelper
 import net.minecraft.util.math.Vec3d
 import kotlin.math.abs
 
-object EndResetRenderer : WorldRenderEvents.AfterEntities, ClientTickEvents.EndWorldTick, ClientWorldEvents.AfterClientWorldChange {
-    private var progress: Int = -1
+object EndResetRenderer : WorldRenderEvents.AfterEntities, ClientTickEvents.EndWorldTick, ClientWorldEvents.AfterClientWorldChange, HudElement {
+    var progress: Int = -1
+        private set
 
-    const val MAX_RADIUS = 32f
+    const val MAX_RADIUS = 16f
     const val LAYERS = 8
     const val HALF_HEIGHT = 2048f
     const val LAYER_OFFSET = 4
-    const val MAX_PROGRESS = 150
+    const val MAX_PROGRESS = 250
     const val OPACITY_DURATION = 16
+
+    const val OVERLAY_DURATION = 50
+
+    val HUD_ID = Endothermic.id("end_reset_overlay")
 
     fun reset() {
         progress = -1
@@ -89,16 +98,22 @@ object EndResetRenderer : WorldRenderEvents.AfterEntities, ClientTickEvents.EndW
         matrices.pop()
     }
 
+    /**
+     * For [HudElement]
+     */
+    override fun render(
+        context: DrawContext,
+        tickCounter: RenderTickCounter
+    ) {
+        val opacity = 255 * (progress - (MAX_PROGRESS - OVERLAY_DURATION)) / OVERLAY_DURATION
+        if (opacity <= 0) return
+        context.fill(0, 0, context.scaledWindowWidth, context.scaledWindowHeight, ColorHelper.getArgb(opacity, 255, 255, 255))
+    }
+
     override fun onEndTick(world: ClientWorld) {
         if (world.tickManager.shouldTick() && progress >= 0 && progress < MAX_PROGRESS)
             progress++
     }
 
-    override fun afterWorldChange(
-        p0: MinecraftClient?,
-        p1: ClientWorld?
-    ) {
-        reset()
-    }
-
+    override fun afterWorldChange(client: MinecraftClient?, world: ClientWorld?) = reset()
 }
