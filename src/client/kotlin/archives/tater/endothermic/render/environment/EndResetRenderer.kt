@@ -23,7 +23,7 @@ object EndResetRenderer : WorldRenderEvents.AfterEntities, ClientTickEvents.EndW
 
     const val MAX_RADIUS = 16f
     const val LAYERS = 8
-    const val HALF_HEIGHT = 2048f
+    const val HALF_HEIGHT = 4096f
     const val LAYER_OFFSET = 4
     const val MAX_PROGRESS = 250
     const val OPACITY_DURATION = 16
@@ -79,7 +79,7 @@ object EndResetRenderer : WorldRenderEvents.AfterEntities, ClientTickEvents.EndW
         var overlay = 0
         with (consumer) {
             for (i in outerLayer - LAYERS - 1..outerLayer) {
-                val radius = (progress * MAX_RADIUS / MAX_PROGRESS + 8f) * (i + 1) / LAYERS
+                val radius = (progress * MAX_RADIUS / MAX_PROGRESS + 8f) * (i + 1) / LAYERS - 0.5f
                 val opacity =
                     (((progress - LAYER_OFFSET * (i + 1)) / OPACITY_DURATION).coerceIn(0f, 1f) * 255 / (LAYERS - 2)).toInt()
                 if (radius > 0 && opacity > 0) {

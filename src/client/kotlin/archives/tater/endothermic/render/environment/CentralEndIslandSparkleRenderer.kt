@@ -15,7 +15,6 @@ import net.minecraft.util.math.MathHelper.TAU
 import net.minecraft.util.math.RotationAxis
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
-import kotlin.math.cos
 import kotlin.math.sin
 
 object CentralEndIslandSparkleRenderer : WorldRenderEvents.AfterEntities, ClientTickEvents.EndWorldTick, ClientWorldEvents.AfterClientWorldChange {
@@ -27,7 +26,8 @@ object CentralEndIslandSparkleRenderer : WorldRenderEvents.AfterEntities, Client
     const val ISLAND_RADIUS = 3 * 16 // Approximation
     const val FADE_OUT_DISTANCE = 3 * 16
 
-    val TEXTURE = Endothermic.id("textures/environment/sparkle.png")
+    val PRIMARY_TEXTURE = Endothermic.id("textures/environment/sparkle_primary.png")
+    val SECONDARY_TEXTURE = Endothermic.id("textures/environment/sparkle_secondary.png")
 
     private var currentTime = 0
 
@@ -54,7 +54,7 @@ object CentralEndIslandSparkleRenderer : WorldRenderEvents.AfterEntities, Client
 
         val matrices = context.matrixStack()!!
         val progress = currentTime + context.tickCounter().getTickProgress(false)
-        val consumer = context.consumers()!!.getBuffer(EndothermicRenderLayers.SPARKLE(TEXTURE))
+        val consumers = context.consumers()!!
         val scale = context.camera().pos.distanceTo(SPARKLE_POS).toFloat()
 
         matrices.push()
@@ -64,13 +64,13 @@ object CentralEndIslandSparkleRenderer : WorldRenderEvents.AfterEntities, Client
         matrices.push()
         matrices.multiply(RotationAxis.POSITIVE_Z.rotation(ROTATION_SPEED * progress))
         matrices.scale(scale, scale, scale)
-        consumer.quad(matrices.peek(), -radius, -radius, 0f, radius, radius, 0f, 63 + (128 * (0.5f * sin(0.0625f * progress) + 0.5)).toInt())
+        consumers.getBuffer(EndothermicRenderLayers.SPARKLE(PRIMARY_TEXTURE)).quad(matrices.peek(), -radius, -radius, 0f, radius, radius, 0f, 63 + (128 * (0.5f * sin(0.0625f * progress) + 0.5)).toInt())
         matrices.pop()
 
         matrices.multiply(RotationAxis.POSITIVE_Z.rotation(-1.5f * ROTATION_SPEED * progress))
         matrices.translate(0f, 0f, 1f)
         matrices.scale(scale, scale, scale)
-        consumer.quad(matrices.peek(), -radius, -radius, 0f, radius, radius, 0f, 31 + (63 * (0.5f * cos(0.0625f * progress) + 0.5)).toInt())
+        consumers.getBuffer(EndothermicRenderLayers.SPARKLE(SECONDARY_TEXTURE)).quad(matrices.peek(), -radius, -radius, 0f, radius, radius, 0f, 31 + (63 * (-0.5f * sin(0.0625f * progress) + 0.5)).toInt())
 
         matrices.pop()
     }
