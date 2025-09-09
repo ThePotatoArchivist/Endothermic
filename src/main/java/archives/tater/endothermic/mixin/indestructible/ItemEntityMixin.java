@@ -1,4 +1,4 @@
-package archives.tater.endothermic.mixin;
+package archives.tater.endothermic.mixin.indestructible;
 
 import archives.tater.endothermic.registry.EndothermicItems;
 import net.minecraft.entity.Entity;

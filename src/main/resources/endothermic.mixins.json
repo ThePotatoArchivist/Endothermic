@@ -3,8 +3,10 @@
   "package": "archives.tater.endothermic.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "ItemEntityMixin",
-    "ItemStackMixin"
+    "dashrocket.LivingEntityMixin",
+    "dashrocket.PlayerEntityMixin",
+    "indestructible.ItemEntityMixin",
+    "indestructible.ItemStackMixin"
   ],
   "injectors": {
     "defaultRequire": 1

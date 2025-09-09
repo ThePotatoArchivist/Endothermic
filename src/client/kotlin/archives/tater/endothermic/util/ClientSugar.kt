@@ -1,7 +1,10 @@
 package archives.tater.endothermic.util
 
 import com.mojang.blaze3d.pipeline.RenderPipeline
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider
 import net.minecraft.client.render.RenderLayer.MultiPhaseParameters
+import net.minecraft.registry.RegistryKey
+import net.minecraft.registry.RegistryWrapper
 import net.minecraft.util.Identifier
 
 inline fun MultiPhaseParameters(affectsOutline: Boolean = false, init: MultiPhaseParameters.Builder.() -> Unit): MultiPhaseParameters =
@@ -16,4 +19,9 @@ inline fun RenderPipeline(vararg snippets: RenderPipeline.Snippet, init: RenderP
 fun RenderPipeline.Builder.withShaders(shader: Identifier) {
     withFragmentShader(shader)
     withVertexShader(shader)
+}
+
+context(registries: RegistryWrapper.WrapperLookup)
+fun <T> FabricDynamicRegistryProvider.Entries.add(key: RegistryKey<T>) {
+    add(key, registries[key.registryRef][key].value())
 }

@@ -1,4 +1,4 @@
-package archives.tater.endothermic.mixin;
+package archives.tater.endothermic.mixin.indestructible;
 
 import archives.tater.endothermic.registry.EndothermicItems;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
@@ -30,5 +30,4 @@ public abstract class ItemStackMixin {
     private boolean indestructible(boolean original, @Local(argsOnly = true) DamageSource source) {
         return original && !isIn(EndothermicItems.INDESTRUCTIBLE) || source.isOf(DamageTypes.GENERIC_KILL);
     }
-
 }

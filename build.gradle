@@ -76,6 +76,12 @@ java {
 	targetCompatibility = JavaVersion.VERSION_21
 }
 
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xcontext-parameters")
+    }
+}
+
 jar {
 	inputs.property "archivesName", project.base.archivesName
 
