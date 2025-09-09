@@ -16,6 +16,8 @@ object EndothermicClient : ClientModInitializer {
         EndothermicRenderLayers.init()
 
         WorldRenderEvents.AFTER_ENTITIES.register(CentralEndIslandSparkleRenderer)
+        ClientTickEvents.END_WORLD_TICK.register(CentralEndIslandSparkleRenderer)
+        ClientWorldEvents.AFTER_CLIENT_WORLD_CHANGE.register(CentralEndIslandSparkleRenderer)
 
 		WorldRenderEvents.AFTER_ENTITIES.register(EndResetRenderer)
 		ClientTickEvents.END_WORLD_TICK.register(EndResetRenderer)

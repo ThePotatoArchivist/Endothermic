@@ -43,7 +43,7 @@ object EndothermicRenderLayers {
             withShaders(Endothermic.id("core/rendertype_sparkle"))
             withBlend(BlendFunction(SourceFactor.SRC_ALPHA, DestFactor.ONE))
             withSampler("Sampler0")
-            withVertexFormat(VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS)
+            withVertexFormat(VertexFormats.POSITION_TEXTURE_COLOR, VertexFormat.DrawMode.QUADS)
         }
     )
 
