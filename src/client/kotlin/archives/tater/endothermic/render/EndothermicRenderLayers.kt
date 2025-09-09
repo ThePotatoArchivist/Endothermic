@@ -1,5 +1,6 @@
-package archives.tater.endothermic
+package archives.tater.endothermic.render
 
+import archives.tater.endothermic.Endothermic
 import archives.tater.endothermic.util.MultiPhaseParameters
 import archives.tater.endothermic.util.RenderPipeline
 import archives.tater.endothermic.util.withShaders
@@ -47,7 +48,7 @@ object EndothermicRenderLayers {
         }
     )
 
-    val SPARKLE: Function<Identifier, RenderLayer> = memoize<Identifier, RenderLayer> { texture ->
+    val SPARKLE: Function<Identifier, RenderLayer> = memoize { texture ->
         RenderLayer.of(
             "${Endothermic.MOD_ID}_sparkle",
             RenderLayer.DEFAULT_BUFFER_SIZE,
