@@ -1,7 +1,7 @@
-package archives.tater.endothermic.render.environment
+package archives.tater.endothermic.client.render.environment
 
 import archives.tater.endothermic.Endothermic
-import archives.tater.endothermic.render.EndothermicRenderLayers
+import archives.tater.endothermic.client.render.EndothermicRenderLayers
 import archives.tater.endothermic.util.invoke
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientWorldEvents

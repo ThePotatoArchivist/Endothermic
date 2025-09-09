@@ -1,8 +1,8 @@
 package archives.tater.endothermic
 
-import archives.tater.endothermic.render.EndothermicRenderLayers
-import archives.tater.endothermic.render.environment.CentralEndIslandSparkleRenderer
-import archives.tater.endothermic.render.environment.EndResetRenderer
+import archives.tater.endothermic.client.render.EndothermicRenderLayers
+import archives.tater.endothermic.client.render.environment.CentralEndIslandSparkleRenderer
+import archives.tater.endothermic.client.render.environment.EndResetRenderer
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientWorldEvents

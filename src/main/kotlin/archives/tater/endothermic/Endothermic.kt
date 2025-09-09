@@ -1,5 +1,6 @@
 package archives.tater.endothermic
 
+import archives.tater.endothermic.registry.EndothermicItems
 import net.fabricmc.api.ModInitializer
 import net.minecraft.util.Identifier
 import org.slf4j.LoggerFactory
@@ -16,6 +17,6 @@ object Endothermic : ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
-		logger.info("Hello Fabric world!")
+        EndothermicItems.init()
 	}
 }

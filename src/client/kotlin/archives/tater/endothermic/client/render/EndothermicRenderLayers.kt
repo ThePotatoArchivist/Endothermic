@@ -1,4 +1,4 @@
-package archives.tater.endothermic.render
+package archives.tater.endothermic.client.render
 
 import archives.tater.endothermic.Endothermic
 import archives.tater.endothermic.util.MultiPhaseParameters
