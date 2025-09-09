@@ -1,5 +1,6 @@
 package archives.tater.endothermic
 
+import archives.tater.endothermic.util.invoke
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents
 import net.minecraft.client.render.VertexConsumer
@@ -10,16 +11,19 @@ object CentralEndIslandSparkleRenderer : WorldRenderEvents.AfterEntities {
     val SPARKLE_POS = Vec3d(0.0, 90.0, 0.0)
     const val MAX_RADIUS = 1f / 32
 
-    private fun VertexConsumer.vertex(matrix: MatrixStack.Entry, x: Float, y: Float, z: Float, alpha: Int) {
+    val TEXTURE = Endothermic.id("textures/misc/sparkle.png")
+
+    private fun VertexConsumer.vertex(matrix: MatrixStack.Entry, x: Float, y: Float, z: Float, alpha: Int, u: Float, v: Float) {
         vertex(matrix, x, y, z)
         color(255, 255, 255, alpha)
+        texture(u, v)
     }
 
     private fun VertexConsumer.quad(matrix: MatrixStack.Entry, x1: Float, y1: Float, z1: Float, x2: Float, y2: Float, z2: Float, alpha: Int) {
-        vertex(matrix, x1, y1, z1, alpha)
-        vertex(matrix, x2, y1, z2, alpha)
-        vertex(matrix, x2, y2, z2, alpha)
-        vertex(matrix, x1, y2, z1, alpha)
+        vertex(matrix, x1, y1, z1, alpha, 0f, 0f)
+        vertex(matrix, x2, y1, z2, alpha, 1f, 0f)
+        vertex(matrix, x2, y2, z2, alpha, 1f, 1f)
+        vertex(matrix, x1, y2, z1, alpha, 0f, 1f)
     }
 
     override fun afterEntities(context: WorldRenderContext) {
@@ -34,8 +38,8 @@ object CentralEndIslandSparkleRenderer : WorldRenderEvents.AfterEntities {
         val scale = context.camera().pos.distanceTo(SPARKLE_POS).toFloat()
         matrices.scale(scale, scale, scale)
 
-        context.consumers()!!.getBuffer(EndothermicRenderLayers.FOUNTAIN).apply {
-            quad(matrices.peek(), -radius, -radius, 0f, radius, radius, 0f, 255)
+        context.consumers()!!.getBuffer(EndothermicRenderLayers.SPARKLE(TEXTURE)).apply {
+            quad(matrices.peek(), -radius, -radius, 0f, radius, radius, 0f, 192)
         }
 
         matrices.pop()
