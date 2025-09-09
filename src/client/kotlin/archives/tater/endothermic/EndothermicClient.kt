@@ -1,5 +1,6 @@
 package archives.tater.endothermic
 
+import archives.tater.endothermic.render.EndothermicRenderLayers
 import archives.tater.endothermic.render.environment.CentralEndIslandSparkleRenderer
 import archives.tater.endothermic.render.environment.EndResetRenderer
 import net.fabricmc.api.ClientModInitializer

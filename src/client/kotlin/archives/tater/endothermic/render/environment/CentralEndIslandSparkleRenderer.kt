@@ -19,10 +19,13 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 object CentralEndIslandSparkleRenderer : WorldRenderEvents.AfterEntities, ClientTickEvents.EndWorldTick, ClientWorldEvents.AfterClientWorldChange {
-    val SPARKLE_POS = Vec3d(0.0, 90.0, 0.0)
+    val SPARKLE_POS = Vec3d(0.0, 60.0, 0.0)
     const val MAX_RADIUS = 3f / 32
     const val ROTATION_DURATION = 30 * 20
     const val ROTATION_SPEED = TAU / ROTATION_DURATION
+
+    const val ISLAND_RADIUS = 3 * 16 // Approximation
+    const val FADE_OUT_DISTANCE = 3 * 16
 
     val TEXTURE = Endothermic.id("textures/environment/sparkle.png")
 
@@ -46,7 +49,7 @@ object CentralEndIslandSparkleRenderer : WorldRenderEvents.AfterEntities, Client
     override fun afterEntities(context: WorldRenderContext) {
         if (!shouldRender(context.world())) return
 
-        val radius = MAX_RADIUS * ((context.camera().cameraPos.subtract(0.0, 0.0, 0.0).horizontalLength() - (context.worldRenderer().viewDistance - 1) * 16) / 16).coerceAtMost(1.0).toFloat()
+        val radius = MAX_RADIUS * ((context.camera().cameraPos.subtract(0.0, 0.0, 0.0).horizontalLength() - context.worldRenderer().viewDistance * 16 - ISLAND_RADIUS) / FADE_OUT_DISTANCE).coerceAtMost(1.0).toFloat()
         if (radius < 0) return
 
         val matrices = context.matrixStack()!!
