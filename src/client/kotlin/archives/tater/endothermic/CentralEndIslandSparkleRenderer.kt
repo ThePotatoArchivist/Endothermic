@@ -9,7 +9,7 @@ import net.minecraft.util.math.Vec3d
 
 object CentralEndIslandSparkleRenderer : WorldRenderEvents.AfterEntities {
     val SPARKLE_POS = Vec3d(0.0, 90.0, 0.0)
-    const val MAX_RADIUS = 1f / 32
+    const val MAX_RADIUS = 1f / 16
 
     val TEXTURE = Endothermic.id("textures/misc/sparkle.png")
 
@@ -39,7 +39,7 @@ object CentralEndIslandSparkleRenderer : WorldRenderEvents.AfterEntities {
         matrices.scale(scale, scale, scale)
 
         context.consumers()!!.getBuffer(EndothermicRenderLayers.SPARKLE(TEXTURE)).apply {
-            quad(matrices.peek(), -radius, -radius, 0f, radius, radius, 0f, 192)
+            quad(matrices.peek(), -radius, -radius, 0f, radius, radius, 0f, 127)
         }
 
         matrices.pop()

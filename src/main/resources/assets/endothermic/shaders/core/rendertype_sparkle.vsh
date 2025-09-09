@@ -6,8 +6,6 @@
 in vec3 Position;
 in vec2 UV0;
 
-uniform sampler2D Sampler2;
-
 out vec2 texCoord0;
 
 void main() {

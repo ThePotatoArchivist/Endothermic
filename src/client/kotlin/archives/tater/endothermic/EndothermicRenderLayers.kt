@@ -2,6 +2,7 @@ package archives.tater.endothermic
 
 import archives.tater.endothermic.util.MultiPhaseParameters
 import archives.tater.endothermic.util.RenderPipeline
+import archives.tater.endothermic.util.withShaders
 import com.mojang.blaze3d.pipeline.BlendFunction
 import com.mojang.blaze3d.pipeline.RenderPipeline
 import com.mojang.blaze3d.platform.DestFactor
@@ -19,8 +20,7 @@ object EndothermicRenderLayers {
     val RENDERTYPE_FOUNTAIN: RenderPipeline = RenderPipelines.register(
         RenderPipeline(RenderPipelines.TRANSFORMS_AND_PROJECTION_SNIPPET) {
             withLocation(Endothermic.id("pipeline/fountain"))
-            withVertexShader(Endothermic.id("core/rendertype_fountain"))
-            withFragmentShader(Endothermic.id("core/rendertype_fountain"))
+            withShaders(Endothermic.id("core/rendertype_fountain"))
             withBlend(BlendFunction(SourceFactor.SRC_ALPHA, DestFactor.ONE))
             withVertexFormat(VertexFormats.POSITION_COLOR, VertexFormat.DrawMode.QUADS)
         }
@@ -40,11 +40,9 @@ object EndothermicRenderLayers {
     val RENDERTYPE_SPARKLE: RenderPipeline = RenderPipelines.register(
         RenderPipeline(RenderPipelines.TRANSFORMS_AND_PROJECTION_SNIPPET) {
             withLocation(Endothermic.id("pipeline/sparkle"))
-            withVertexShader(Endothermic.id("core/rendertype_sparkle"))
-            withFragmentShader(Endothermic.id("core/rendertype_sparkle"))
+            withShaders(Endothermic.id("core/rendertype_sparkle"))
             withBlend(BlendFunction(SourceFactor.SRC_ALPHA, DestFactor.ONE))
             withSampler("Sampler0")
-            withSampler("Sampler2")
             withVertexFormat(VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS)
         }
     )
