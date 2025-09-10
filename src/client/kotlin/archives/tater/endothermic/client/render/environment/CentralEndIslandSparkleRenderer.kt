@@ -60,16 +60,15 @@ object CentralEndIslandSparkleRenderer : WorldRenderEvents.AfterEntities, Client
         matrices.push()
         matrices.translate(context.camera().pos.multiply(-1.0).add(SPARKLE_POS)) // Always render relative to world
         matrices.multiply(context.camera().rotation)
+        matrices.scale(scale, scale, scale)
 
         matrices.push()
         matrices.multiply(RotationAxis.POSITIVE_Z.rotation(ROTATION_SPEED * progress))
-        matrices.scale(scale, scale, scale)
         consumers.getBuffer(EndothermicRenderLayers.SPARKLE(PRIMARY_TEXTURE)).quad(matrices.peek(), -radius, -radius, 0f, radius, radius, 0f, 63 + (128 * (0.5f * sin(0.0625f * progress) + 0.5)).toInt())
         matrices.pop()
 
         matrices.multiply(RotationAxis.POSITIVE_Z.rotation(-1.5f * ROTATION_SPEED * progress))
-        matrices.translate(0f, 0f, 1f)
-        matrices.scale(scale, scale, scale)
+        matrices.translate(0f, 0f, 1f / 256)
         consumers.getBuffer(EndothermicRenderLayers.SPARKLE(SECONDARY_TEXTURE)).quad(matrices.peek(), -radius, -radius, 0f, radius, radius, 0f, 31 + (63 * (-0.5f * sin(0.0625f * progress) + 0.5)).toInt())
 
         matrices.pop()

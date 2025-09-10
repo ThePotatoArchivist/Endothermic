@@ -33,7 +33,7 @@ class DashRocketItem(settings: Settings) : Item(settings) {
 
     companion object {
         const val MAX_DASH_TICKS = 40
-        const val ATTACK_VELOCITY_COEFFICIENT = 0.2f
+        const val ATTACK_VELOCITY_COEFFICIENT = 1.25f
         const val WALL_DAMAGE_MULTIPLIER = 2f
         const val VELOCITY_KNOCKBACK_MULTIPLIER = 2.0
     }
