@@ -35,5 +35,6 @@ class DashRocketItem(settings: Settings) : Item(settings) {
         const val MAX_DASH_TICKS = 40
         const val ATTACK_VELOCITY_COEFFICIENT = 0.2f
         const val WALL_DAMAGE_MULTIPLIER = 2f
+        const val VELOCITY_KNOCKBACK_MULTIPLIER = 2.0
     }
 }

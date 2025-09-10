@@ -29,6 +29,7 @@ class DamageTypeTagGenerator(
             forceAddTag(DamageTypeTags.BYPASSES_INVULNERABILITY)
             add(EndothermicDamageTypes.DASH_ATTACK)
             add(DamageTypes.FLY_INTO_WALL)
+            add(DamageTypes.FALL)
         }
     }
 }

@@ -49,6 +49,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     )
     private void addVelocity(Entity target, CallbackInfo ci) {
         if (!hasAttached(DASH_TICKS)) return;
-        target.addVelocity(getMovement().multiply(2));
+        target.addVelocity(getMovement().multiply(DashRocketItem.VELOCITY_KNOCKBACK_MULTIPLIER));
     }
 }

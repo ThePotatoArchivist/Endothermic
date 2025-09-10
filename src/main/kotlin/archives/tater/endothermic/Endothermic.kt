@@ -1,9 +1,6 @@
 package archives.tater.endothermic
 
-import archives.tater.endothermic.registry.EndothermicDamageTypes
-import archives.tater.endothermic.registry.EndothermicDataAttachments
-import archives.tater.endothermic.registry.EndothermicEntities
-import archives.tater.endothermic.registry.EndothermicItems
+import archives.tater.endothermic.registry.*
 import net.fabricmc.api.ModInitializer
 import net.minecraft.util.Identifier
 import org.slf4j.LoggerFactory
@@ -22,6 +19,7 @@ object Endothermic : ModInitializer {
 		// Proceed with mild caution.
         EndothermicDamageTypes.init()
         EndothermicDataAttachments.init()
+        EndothermicParticles.init()
         EndothermicItems.init()
         EndothermicEntities.init()
 	}

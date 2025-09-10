@@ -1,9 +1,6 @@
 package archives.tater.endothermic
 
-import archives.tater.endothermic.datagen.DamageTypeGenerator
-import archives.tater.endothermic.datagen.DamageTypeTagGenerator
-import archives.tater.endothermic.datagen.ItemTagGenerator
-import archives.tater.endothermic.datagen.LangGenerator
+import archives.tater.endothermic.datagen.*
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.minecraft.registry.RegistryBuilder
@@ -20,7 +17,9 @@ object EndothermicDataGenerator : DataGeneratorEntrypoint {
             addProvider(::DamageTypeGenerator)
             addProvider(::DamageTypeTagGenerator)
 
+            addProvider(::ModelGenerator)
             addProvider(::LangGenerator)
+            addProvider(::ParticleGenerator)
         }
 	}
 }

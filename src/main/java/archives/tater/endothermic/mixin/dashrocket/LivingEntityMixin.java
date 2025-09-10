@@ -2,13 +2,13 @@ package archives.tater.endothermic.mixin.dashrocket;
 
 import archives.tater.endothermic.item.DashRocketItem;
 import archives.tater.endothermic.registry.EndothermicDamageTypes;
+import archives.tater.endothermic.registry.EndothermicParticles;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -58,8 +58,9 @@ public abstract class LivingEntityMixin extends Entity {
             return;
         }
 
-        for (var i = 0; i < 16; i++)
-            getWorld().addParticleClient(ParticleTypes.FIREWORK, getX() + 2 * random.nextDouble() - 1, getY() + 2 * random.nextDouble() - 1, getZ() + 2 * random.nextDouble() - 1, 0, 0, 0);
+        if (getWorld().isClient)
+            for (var i = 0; i < 8; i++)
+                getWorld().addParticleClient(EndothermicParticles.DASH, getX() + 2 * random.nextDouble() - 1, getY() + 2 * random.nextDouble() - 1, getZ() + 2 * random.nextDouble() - 1, getVelocity().x, getVelocity().y, getVelocity().z);
 
         var rotation = getRotationVector();
         double d = 1.5;
