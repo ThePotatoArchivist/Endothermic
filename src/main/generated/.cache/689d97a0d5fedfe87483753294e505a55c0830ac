@@ -1,5 +1,5 @@
 // 1.21.8	-999999999-01-01T00:00:00	Endothermic/Tags for minecraft:damage_type
-028321e3a95d455a0a6115bcb9345a08750fbaf5 data/endothermic/tags/damage_type/bypasses_dash.json
+89738cd9832ae76084b61404f51c81de91ae214d data/endothermic/tags/damage_type/bypasses_dash.json
 8acea33affbfc18332c1da221aa37e1597377d9e data/minecraft/tags/damage_type/is_player_attack.json
 8acea33affbfc18332c1da221aa37e1597377d9e data/minecraft/tags/damage_type/is_projectile.json
 8acea33affbfc18332c1da221aa37e1597377d9e data/minecraft/tags/damage_type/no_knockback.json
