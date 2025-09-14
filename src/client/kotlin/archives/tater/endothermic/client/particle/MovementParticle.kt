@@ -1,5 +1,6 @@
 package archives.tater.endothermic.client.particle
 
+import archives.tater.endothermic.client.render.EndothermicRenderLayers
 import archives.tater.endothermic.util.SimpleSingleSpriteParticleFactory
 import net.minecraft.client.particle.ParticleTextureSheet
 import net.minecraft.client.particle.SpriteBillboardParticle
@@ -36,7 +37,7 @@ class MovementParticle(clientWorld: ClientWorld, x: Double, y: Double, z: Double
         render(vertexConsumer, camera, quaternionf, tickProgress)
     }
 
-    override fun getType(): ParticleTextureSheet = ParticleTextureSheet.PARTICLE_SHEET_TRANSLUCENT
+    override fun getType(): ParticleTextureSheet = EndothermicRenderLayers.PARTICLE_SHEET_ADDITIVE
 
     companion object Factory : SimpleSingleSpriteParticleFactory(::MovementParticle)
 }

@@ -3,7 +3,7 @@
 	"package": "archives.tater.endothermic.mixin.client",
 	"compatibilityLevel": "JAVA_21",
 	"client": [
-		"ExampleClientMixin"
+      "ParticleManagerMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
