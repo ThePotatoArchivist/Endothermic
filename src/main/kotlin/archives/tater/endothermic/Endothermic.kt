@@ -1,7 +1,9 @@
 package archives.tater.endothermic
 
+import archives.tater.endothermic.mixin.EnderDragonFightAccessor
 import archives.tater.endothermic.registry.*
 import net.fabricmc.api.ModInitializer
+import net.minecraft.server.world.ServerWorld
 import net.minecraft.util.Identifier
 import org.slf4j.LoggerFactory
 
@@ -12,6 +14,9 @@ object Endothermic : ModInitializer {
     fun id(path: String): Identifier = Identifier.of(MOD_ID, path)
 
     private val logger = LoggerFactory.getLogger(MOD_ID)
+
+    @JvmStatic
+    fun isDragonKilled(world: ServerWorld) = (world.enderDragonFight as EnderDragonFightAccessor?)?.dragonKilled ?: false
 
 	override fun onInitialize() {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.

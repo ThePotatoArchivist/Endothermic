@@ -3,8 +3,13 @@
   "package": "archives.tater.endothermic.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "EnderDragonFightAccessor",
     "dashrocket.LivingEntityMixin",
     "dashrocket.PlayerEntityMixin",
+    "gateways.AbstractBlockMixin",
+    "gateways.EnderDragonFightMixin",
+    "gateways.EndGatewayBlockEntityMixin",
+    "gateways.EndGatewayBlockMixin",
     "indestructible.ItemEntityMixin",
     "indestructible.ItemStackMixin",
     "portals.EndGatewayBlockEntityInvoker",

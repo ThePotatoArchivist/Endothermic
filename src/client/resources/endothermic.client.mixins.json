@@ -1,11 +1,12 @@
 {
-	"required": true,
-	"package": "archives.tater.endothermic.mixin.client",
-	"compatibilityLevel": "JAVA_21",
-	"client": [
-      "ParticleManagerMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
+  "required": true,
+  "package": "archives.tater.endothermic.mixin.client",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "EndGatewayBlockEntityRendererMixin",
+    "ParticleManagerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
 	}
 }

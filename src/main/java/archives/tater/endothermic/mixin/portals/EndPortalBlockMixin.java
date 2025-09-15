@@ -1,6 +1,7 @@
 package archives.tater.endothermic.mixin.portals;
 
 import archives.tater.endothermic.EndPortalCache;
+import archives.tater.endothermic.Endothermic;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.block.EndPortalBlock;
 import net.minecraft.entity.Entity;
@@ -24,9 +25,7 @@ public class EndPortalBlockMixin {
             cancellable = true
     )
     private void sendToOuterEnd(ServerWorld world, Entity entity, BlockPos pos, CallbackInfoReturnable<TeleportTarget> cir, @Local(ordinal = 1) ServerWorld endWorld) {
-        var dragonFight = endWorld.getEnderDragonFight();
-        if (dragonFight == null) return; // Probably shouldn't happen?
-        if (dragonFight.hasPreviouslyKilled()) return;
+        if (Endothermic.isDragonKilled(endWorld)) return;
         var cachedPos = endWorld.getPersistentStateManager().getOrCreate(EndPortalCache.TYPE).getOrCreate(endWorld, pos);
         cir.setReturnValue(new TeleportTarget(
                 endWorld,

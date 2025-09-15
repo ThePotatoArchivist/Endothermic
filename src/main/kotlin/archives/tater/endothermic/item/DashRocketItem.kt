@@ -24,7 +24,7 @@ class DashRocketItem(settings: Settings) : Item(settings) {
         val stack = user.getStackInHand(hand)
 
         user[DASH_TICKS] = MAX_DASH_TICKS
-        world.playSound(null, user.x, user.y, user.z, SoundEvents.ENTITY_FIREWORK_ROCKET_LAUNCH, user.soundCategory)
+        world.playSoundFromEntity(null, user, SoundEvents.ENTITY_FIREWORK_ROCKET_LAUNCH, user.soundCategory, 1f, 1f)
         stack.decrementUnlessCreative(1, user)
         user.incrementStat(Stats.USED.getOrCreateStat(this))
 
