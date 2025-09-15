@@ -8,6 +8,7 @@ import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
 import net.minecraft.registry.RegistryKey
 import net.minecraft.registry.RegistryKeys
+import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.Identifier
 
 object EndothermicEntities {
@@ -27,6 +28,11 @@ object EndothermicEntities {
             trackingTickInterval(10)
             init()
         }
+
+    private fun tagOf(id: Identifier): TagKey<EntityType<*>> = TagKey.of(RegistryKeys.ENTITY_TYPE, id)
+    private fun tagOf(path: String) = tagOf(Endothermic.id(path))
+
+    val END_NATIVE = tagOf("end_native")
 
     fun init() {
 

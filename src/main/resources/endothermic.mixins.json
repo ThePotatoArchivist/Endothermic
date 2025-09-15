@@ -14,7 +14,8 @@
     "indestructible.ItemEntityMixin",
     "indestructible.ItemStackMixin",
     "portals.EndGatewayBlockEntityInvoker",
-    "portals.EndPortalBlockMixin"
+    "portals.EndPortalBlockMixin",
+    "reset.ServerWorldMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -16,7 +16,8 @@ object Endothermic : ModInitializer {
 
     fun id(path: String): Identifier = Identifier.of(MOD_ID, path)
 
-    private val logger = LoggerFactory.getLogger(MOD_ID)
+    @JvmField
+    val logger = LoggerFactory.getLogger(MOD_ID)
 
     @JvmStatic
     fun isDragonKilled(world: ServerWorld) = (world.enderDragonFight as EnderDragonFightAccessor?)?.dragonKilled ?: false

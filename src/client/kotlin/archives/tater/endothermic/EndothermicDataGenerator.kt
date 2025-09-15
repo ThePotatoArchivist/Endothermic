@@ -16,6 +16,7 @@ object EndothermicDataGenerator : DataGeneratorEntrypoint {
             addProvider(::ItemTagGenerator)
             addProvider(::DamageTypeGenerator)
             addProvider(::DamageTypeTagGenerator)
+            addProvider(::EntityTagGenerator)
 
             addProvider(::ModelGenerator)
             addProvider(::LangGenerator)
