@@ -9,6 +9,8 @@ import net.minecraft.registry.RegistryEntryLookup
 import net.minecraft.registry.RegistryKey
 import net.minecraft.registry.entry.RegistryEntry
 import java.util.function.Function
+import com.mojang.datafixers.util.Pair as DFPair
+import net.minecraft.util.Pair as MCPair
 import net.minecraft.util.Unit as MCUnit
 
 inline operator fun <T, R> Function<T, R>.invoke(arg: T): R = apply(arg)
@@ -26,3 +28,9 @@ inline operator fun <T> RegistryEntryLookup.RegistryLookup.get(registryRef: Regi
     getOrThrow(registryRef)
 inline operator fun <T> RegistryEntryLookup<T>.get(key: RegistryKey<T>): RegistryEntry.Reference<T> =
     getOrThrow(key)
+
+inline operator fun <T> MCPair<T, *>.component1(): T = left
+inline operator fun <T> MCPair<*, T>.component2(): T = right
+
+inline operator fun <T> DFPair<T, *>.component1(): T = first
+inline operator fun <T> DFPair<*, T>.component2(): T = second

@@ -6,7 +6,9 @@
     "dashrocket.LivingEntityMixin",
     "dashrocket.PlayerEntityMixin",
     "indestructible.ItemEntityMixin",
-    "indestructible.ItemStackMixin"
+    "indestructible.ItemStackMixin",
+    "portals.EndGatewayBlockEntityInvoker",
+    "portals.EndPortalBlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1
