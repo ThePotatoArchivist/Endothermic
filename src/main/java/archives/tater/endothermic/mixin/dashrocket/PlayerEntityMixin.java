@@ -32,7 +32,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;getAttributeValue(Lnet/minecraft/registry/entry/RegistryEntry;)D", ordinal = 0)
     )
     private double multiplyAttackDamage(double original) {
-        return hasAttached(DASH_TICKS) ? original * DashRocketItem.ATTACK_VELOCITY_COEFFICIENT * max(1, getVelocity().length()) : original;
+        return hasAttached(DASH_TICKS) ? original * max(1, DashRocketItem.ATTACK_VELOCITY_COEFFICIENT * getVelocity().length()) : original;
     }
 
     @WrapOperation(

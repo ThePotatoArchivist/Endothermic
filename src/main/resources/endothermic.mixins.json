@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "EnderDragonFightAccessor",
+    "bossbar.EnderDragonFightMixin",
     "dashrocket.LivingEntityMixin",
     "dashrocket.PlayerEntityMixin",
     "gateways.AbstractBlockMixin",
