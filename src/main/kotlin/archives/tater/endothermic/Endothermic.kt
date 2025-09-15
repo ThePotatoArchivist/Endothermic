@@ -2,7 +2,10 @@ package archives.tater.endothermic
 
 import archives.tater.endothermic.mixin.EnderDragonFightAccessor
 import archives.tater.endothermic.registry.*
+import archives.tater.endothermic.state.EndResetState
 import net.fabricmc.api.ModInitializer
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
+import net.fabricmc.fabric.api.event.player.UseItemCallback
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.util.Identifier
 import org.slf4j.LoggerFactory
@@ -27,5 +30,9 @@ object Endothermic : ModInitializer {
         EndothermicParticles.init()
         EndothermicItems.init()
         EndothermicEntities.init()
+        registerPayloads()
+
+        ServerTickEvents.END_WORLD_TICK.register(EndResetState)
+        UseItemCallback.EVENT.register(EndResetState)
 	}
 }

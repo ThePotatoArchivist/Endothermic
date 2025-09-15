@@ -1,6 +1,6 @@
 package archives.tater.endothermic.mixin.portals;
 
-import archives.tater.endothermic.EndPortalCache;
+import archives.tater.endothermic.state.EndPortalCache;
 import archives.tater.endothermic.Endothermic;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.block.EndPortalBlock;

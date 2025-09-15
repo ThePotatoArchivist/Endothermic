@@ -1,5 +1,6 @@
-package archives.tater.endothermic
+package archives.tater.endothermic.state
 
+import archives.tater.endothermic.Endothermic
 import archives.tater.endothermic.mixin.portals.EndGatewayBlockEntityInvoker
 import archives.tater.endothermic.util.PairListCodec
 import archives.tater.endothermic.util.component1
