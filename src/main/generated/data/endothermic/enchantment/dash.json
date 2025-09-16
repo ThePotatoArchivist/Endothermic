@@ -22,7 +22,7 @@
         "effect": "endothermic:dash_attack",
         "requirements": {
           "condition": "minecraft:entity_properties",
-          "entity": "this",
+          "entity": "attacker",
           "predicate": {
             "flags": {
               "is_flying": true
@@ -44,7 +44,7 @@
         },
         "requirements": {
           "condition": "minecraft:entity_properties",
-          "entity": "this",
+          "entity": "attacker",
           "predicate": {
             "flags": {
               "is_flying": true
@@ -138,10 +138,10 @@
           "type": "endothermic:add_velocity",
           "multiplier": 2.0
         },
-        "enchanted": "damaging_entity",
+        "enchanted": "attacker",
         "requirements": {
           "condition": "minecraft:entity_properties",
-          "entity": "this",
+          "entity": "attacker",
           "predicate": {
             "flags": {
               "is_flying": true

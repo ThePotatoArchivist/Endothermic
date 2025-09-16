@@ -60,7 +60,8 @@ class EnchantmentGenerator(
                 flags(EntityFlagsPredicate.Builder.create().flying(true))
                 movement(MovementPredicate.speed(NumberRange.DoubleRange.atLeast(24.0)))
             }
-            val speedCondition: LootCondition.Builder = EntityPropertiesLootCondition.builder(LootContext.EntityTarget.THIS, speedPredicate)
+            val thisSpeedCondition: LootCondition.Builder = EntityPropertiesLootCondition.builder(LootContext.EntityTarget.THIS, speedPredicate)
+            val attackerSpeedCondition = EntityPropertiesLootCondition.builder(LootContext.EntityTarget.ATTACKER, speedPredicate)
 
             register(DASH, Enchantment.definition(
                 RegistryEntryList.of(Registries.ITEM, EndothermicItems.ELYTRA_ENCHANTABLE),
@@ -75,42 +76,46 @@ class EnchantmentGenerator(
                     EnchantmentEffectComponentTypes.DAMAGE_IMMUNITY,
                     DamageImmunityEnchantmentEffect.INSTANCE,
                     AllOfLootCondition.builder(
-                        speedCondition,
+                        thisSpeedCondition,
                         DamageSourcePropertiesLootCondition.builder(DamageSourcePredicate.Builder.create().apply {
                             tag(TagPredicate.unexpected(EndothermicDamageTypes.BYPASSES_DASH))
                         })
                     )
                 )
+                // TODO protection is capped at 0
                 addEffect(
                     EnchantmentEffectComponentTypes.DAMAGE_PROTECTION,
                     AddEnchantmentEffect(constant(-25f)),
                     AllOfLootCondition.builder(
-                        speedCondition,
+                        thisSpeedCondition,
                         DamageSourcePropertiesLootCondition.builder(DamageSourcePredicate.Builder.create().apply {
                             tag(TagPredicate.expected(EndothermicDamageTypes.BYPASSES_DASH))
                         })
                     )
                 )
+                // TODO post attack doesn't check attacker armor
                 addEffect(
                     EnchantmentEffectComponentTypes.POST_ATTACK,
-                    EnchantmentEffectTarget.DAMAGING_ENTITY,
+                    EnchantmentEffectTarget.ATTACKER,
                     EnchantmentEffectTarget.VICTIM,
                     AddVelocityEnchantmentEntityEffect(constant(2f)),
-                    speedCondition
+                    attackerSpeedCondition
                 )
                 addNonListEffect(
                     EndothermicEnchantments.MOTION_PARTICLES,
                     MotionParticlesEnchantmentEffect(constant(8f), speedPredicate.build())
                 )
+                // TODO verify
                 addEffect(
                     EndothermicEnchantments.REPLACE_DAMAGE_TYPE,
                     damageTypes[EndothermicDamageTypes.DASH_ATTACK],
-                    speedCondition
+                    attackerSpeedCondition
                 )
+                // TODO not working
                 addEffect(
                     EndothermicEnchantments.VELOCITY_SCALED_DAMAGE,
                     VelocityScaledDamageEnchantmentEffect(constant(1.25f), minMultiplier = constant(1f)),
-                    speedCondition
+                    attackerSpeedCondition
                 )
             }
         }
