@@ -9,6 +9,7 @@ import net.minecraft.registry.RegistryKeys
 object EndothermicDataGenerator : DataGeneratorEntrypoint {
     override fun buildRegistry(registryBuilder: RegistryBuilder) {
         registryBuilder.addRegistry(RegistryKeys.DAMAGE_TYPE, DamageTypeGenerator)
+        registryBuilder.addRegistry(RegistryKeys.ENCHANTMENT, EnchantmentGenerator)
     }
 
 	override fun onInitializeDataGenerator(fabricDataGenerator: FabricDataGenerator) {
@@ -17,6 +18,8 @@ object EndothermicDataGenerator : DataGeneratorEntrypoint {
             addProvider(::DamageTypeGenerator)
             addProvider(::DamageTypeTagGenerator)
             addProvider(::EntityTagGenerator)
+            addProvider(::EnchantmentGenerator)
+            addProvider(::EnchantmentTagGenerator)
 
             addProvider(::ModelGenerator)
             addProvider(::LangGenerator)

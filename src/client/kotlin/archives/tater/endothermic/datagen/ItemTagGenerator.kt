@@ -11,9 +11,11 @@ class ItemTagGenerator(output: FabricDataOutput, registriesFuture: CompletableFu
     FabricTagProvider.ItemTagProvider(output, registriesFuture) {
 
     override fun configure(wrapperLookup: RegistryWrapper.WrapperLookup) {
-        valueLookupBuilder(EndothermicItems.INDESTRUCTIBLE).apply {
+        with (valueLookupBuilder(EndothermicItems.INDESTRUCTIBLE)) {
             add(Items.DRAGON_EGG)
         }
+        with (valueLookupBuilder(EndothermicItems.ELYTRA_ENCHANTABLE)) {
+            add(Items.ELYTRA)
+        }
     }
-
 }

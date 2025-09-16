@@ -5,8 +5,9 @@
   "mixins": [
     "EnderDragonFightAccessor",
     "bossbar.EnderDragonFightMixin",
-    "dashrocket.LivingEntityMixin",
-    "dashrocket.PlayerEntityMixin",
+    "enchantment.EnchantmentMixin",
+    "enchantment.LivingEntityMixin",
+    "enchantment.PlayerEntityMixin",
     "gateways.AbstractBlockMixin",
     "gateways.EnderDragonFightMixin",
     "gateways.EndGatewayBlockEntityMixin",

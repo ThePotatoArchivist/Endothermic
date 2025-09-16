@@ -86,6 +86,6 @@ class EndResetState(resetTicks: Int = -1) : PersistentState() {
             amount: Float
         ): Boolean =
             entity.world.registryKey != World.END
-                    || (entity.world as ServerWorld).persistentStateManager.getOrCreate(TYPE).resetTicks > DELAY
+                    || (entity.world as ServerWorld).persistentStateManager.getOrCreate(TYPE).resetTicks < DELAY
     }
 }

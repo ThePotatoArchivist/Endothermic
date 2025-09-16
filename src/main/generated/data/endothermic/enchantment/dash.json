@@ -1,0 +1,173 @@
+{
+  "anvil_cost": 8,
+  "description": {
+    "translate": "enchantment.endothermic.dash"
+  },
+  "effects": {
+    "endothermic:motion_particles": {
+      "condition": {
+        "flags": {
+          "is_flying": true
+        },
+        "movement": {
+          "speed": {
+            "min": 24.0
+          }
+        }
+      },
+      "count": 8.0
+    },
+    "endothermic:replace_damage_type": [
+      {
+        "effect": "endothermic:dash_attack",
+        "requirements": {
+          "condition": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "flags": {
+              "is_flying": true
+            },
+            "movement": {
+              "speed": {
+                "min": 24.0
+              }
+            }
+          }
+        }
+      }
+    ],
+    "endothermic:velocity_scaled_damage": [
+      {
+        "effect": {
+          "min_multiplier": 1.0,
+          "multiplier_per_velocity": 1.25
+        },
+        "requirements": {
+          "condition": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "flags": {
+              "is_flying": true
+            },
+            "movement": {
+              "speed": {
+                "min": 24.0
+              }
+            }
+          }
+        }
+      }
+    ],
+    "minecraft:damage_immunity": [
+      {
+        "effect": {},
+        "requirements": {
+          "condition": "minecraft:all_of",
+          "terms": [
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "flags": {
+                  "is_flying": true
+                },
+                "movement": {
+                  "speed": {
+                    "min": 24.0
+                  }
+                }
+              }
+            },
+            {
+              "condition": "minecraft:damage_source_properties",
+              "predicate": {
+                "tags": [
+                  {
+                    "expected": false,
+                    "id": "endothermic:bypasses_dash"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "minecraft:damage_protection": [
+      {
+        "effect": {
+          "type": "minecraft:add",
+          "value": -25.0
+        },
+        "requirements": {
+          "condition": "minecraft:all_of",
+          "terms": [
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "flags": {
+                  "is_flying": true
+                },
+                "movement": {
+                  "speed": {
+                    "min": 24.0
+                  }
+                }
+              }
+            },
+            {
+              "condition": "minecraft:damage_source_properties",
+              "predicate": {
+                "tags": [
+                  {
+                    "expected": true,
+                    "id": "endothermic:bypasses_dash"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "minecraft:post_attack": [
+      {
+        "affected": "victim",
+        "effect": {
+          "type": "endothermic:add_velocity",
+          "multiplier": 2.0
+        },
+        "enchanted": "damaging_entity",
+        "requirements": {
+          "condition": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "flags": {
+              "is_flying": true
+            },
+            "movement": {
+              "speed": {
+                "min": 24.0
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 10,
+    "per_level_above_first": 25
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 10,
+    "per_level_above_first": 10
+  },
+  "slots": [
+    "chest"
+  ],
+  "supported_items": "#endothermic:enchantable/elytra",
+  "weight": 1
+}

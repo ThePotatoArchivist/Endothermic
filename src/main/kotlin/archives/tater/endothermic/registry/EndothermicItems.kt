@@ -1,7 +1,6 @@
 package archives.tater.endothermic.registry
 
 import archives.tater.endothermic.Endothermic
-import archives.tater.endothermic.item.DashRocketItem
 import net.minecraft.item.Item
 import net.minecraft.item.Items
 import net.minecraft.registry.RegistryKey
@@ -23,10 +22,9 @@ object EndothermicItems {
     private fun tagOf(id: Identifier): TagKey<Item> = TagKey.of(RegistryKeys.ITEM, id)
     private fun tagOf(path: String) = tagOf(Endothermic.id(path))
 
-    val DASH_ROCKET = register("dash_rocket", ::DashRocketItem)
-
     @JvmField
     val INDESTRUCTIBLE = tagOf("indestructible")
+    val ELYTRA_ENCHANTABLE = tagOf("enchantable/elytra")
 
     fun init() {
     }

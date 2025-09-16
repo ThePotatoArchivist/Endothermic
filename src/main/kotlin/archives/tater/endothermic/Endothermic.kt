@@ -38,6 +38,7 @@ object Endothermic : ModInitializer {
         EndothermicItems.init()
         EndothermicTrackedDataHandlers.init()
         EndothermicEntities.init()
+        EndothermicEnchantments.init()
         registerPayloads()
 
         ServerTickEvents.END_WORLD_TICK.register(EndResetState)
