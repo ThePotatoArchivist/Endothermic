@@ -1,6 +1,7 @@
 package archives.tater.endothermic.registry
 
 import archives.tater.endothermic.Endothermic
+import archives.tater.endothermic.entity.FloatingDragonEggEntity
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.SpawnGroup
@@ -31,6 +32,12 @@ object EndothermicEntities {
 
     private fun tagOf(id: Identifier): TagKey<EntityType<*>> = TagKey.of(RegistryKeys.ENTITY_TYPE, id)
     private fun tagOf(path: String) = tagOf(Endothermic.id(path))
+
+    val FLOATING_DRAGON_EGG = register("floating_dragon_egg", ::FloatingDragonEggEntity) {
+        dimensions(1f, 1f)
+        maxTrackingRange(8)
+        trackingTickInterval(Integer.MAX_VALUE)
+    }
 
     val END_NATIVE = tagOf("end_native")
 

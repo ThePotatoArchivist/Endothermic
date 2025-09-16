@@ -8,9 +8,12 @@ import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement
 import net.minecraft.client.MinecraftClient
+import net.minecraft.client.gl.RenderPipelines
 import net.minecraft.client.gui.DrawContext
 import net.minecraft.client.render.RenderTickCounter
 import net.minecraft.client.render.VertexConsumer
+import net.minecraft.client.render.block.entity.EndPortalBlockEntityRenderer
+import net.minecraft.client.texture.TextureSetup
 import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.client.world.ClientWorld
 import net.minecraft.util.math.ColorHelper
@@ -21,14 +24,15 @@ object EndResetRenderer : WorldRenderEvents.AfterEntities, ClientTickEvents.EndW
     var progress: Int = -1
         private set
 
-    const val MAX_RADIUS = 16f
     const val LAYERS = 8
     const val HALF_HEIGHT = 4096f
     const val LAYER_OFFSET = 4
-    const val MAX_PROGRESS = 250
+    const val MAX_PROGRESS = 300
     const val OPACITY_DURATION = 16
+    const val EXPAND_RATE = 0.0625f
 
-    const val OVERLAY_DURATION = 50
+    const val OVERLAY_DURATION_1 = 50
+    const val OVERLAY_DURATION_2 = 50
 
     val HUD_ID = Endothermic.id("end_reset_overlay")
 
@@ -79,7 +83,7 @@ object EndResetRenderer : WorldRenderEvents.AfterEntities, ClientTickEvents.EndW
         var overlay = 0
         with (consumer) {
             for (i in outerLayer - LAYERS - 1..outerLayer) {
-                val radius = (progress * MAX_RADIUS / MAX_PROGRESS + 8f) * (i + 1) / LAYERS - 0.5f
+                val radius = (progress * EXPAND_RATE + 8f) * (i + 1) / LAYERS - 0.5f
                 val opacity =
                     (((progress - LAYER_OFFSET * (i + 1)) / OPACITY_DURATION).coerceIn(0f, 1f) * 255 / (LAYERS - 2)).toInt()
                 if (radius > 0 && opacity > 0) {
@@ -107,8 +111,21 @@ object EndResetRenderer : WorldRenderEvents.AfterEntities, ClientTickEvents.EndW
         context: DrawContext,
         tickCounter: RenderTickCounter
     ) {
-        val opacity = 255 * (progress - (MAX_PROGRESS - OVERLAY_DURATION)) / OVERLAY_DURATION
-        if (opacity <= 0) return
+        if (progress > MAX_PROGRESS - OVERLAY_DURATION_2) {
+            val textureManager = MinecraftClient.getInstance().textureManager
+            val textureSetup = TextureSetup.of(
+                textureManager.getTexture(EndPortalBlockEntityRenderer.SKY_TEXTURE).getGlTextureView(),
+                textureManager.getTexture(EndPortalBlockEntityRenderer.PORTAL_TEXTURE).getGlTextureView()
+            )
+            context.fill(RenderPipelines.END_PORTAL, textureSetup, 0, 0, context.scaledWindowWidth, context.scaledWindowHeight)
+        }
+
+        val opacity = when {
+            progress < MAX_PROGRESS - OVERLAY_DURATION_1 - OVERLAY_DURATION_2 -> return
+            progress < MAX_PROGRESS - OVERLAY_DURATION_2 -> 255 * (progress - MAX_PROGRESS + OVERLAY_DURATION_1 + OVERLAY_DURATION_2) / OVERLAY_DURATION_1
+            progress < MAX_PROGRESS -> 255 * (MAX_PROGRESS - progress) / OVERLAY_DURATION_1
+            else -> return
+        }
         context.fill(0, 0, context.scaledWindowWidth, context.scaledWindowHeight, ColorHelper.getArgb(opacity, 255, 255, 255))
     }
 

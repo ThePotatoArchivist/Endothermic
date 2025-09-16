@@ -3,11 +3,17 @@ package archives.tater.endothermic
 import archives.tater.endothermic.mixin.EnderDragonFightAccessor
 import archives.tater.endothermic.registry.*
 import archives.tater.endothermic.state.EndResetState
+import archives.tater.endothermic.state.EndResetState.Manager.startReset
 import net.fabricmc.api.ModInitializer
+import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
 import net.fabricmc.fabric.api.event.player.UseItemCallback
+import net.fabricmc.loader.api.FabricLoader
+import net.minecraft.item.Items
 import net.minecraft.server.world.ServerWorld
+import net.minecraft.util.ActionResult
 import net.minecraft.util.Identifier
+import net.minecraft.world.World
 import org.slf4j.LoggerFactory
 
 
@@ -30,10 +36,20 @@ object Endothermic : ModInitializer {
         EndothermicDataAttachments.init()
         EndothermicParticles.init()
         EndothermicItems.init()
+        EndothermicTrackedDataHandlers.init()
         EndothermicEntities.init()
         registerPayloads()
 
         ServerTickEvents.END_WORLD_TICK.register(EndResetState)
-        UseItemCallback.EVENT.register(EndResetState)
+        ServerLivingEntityEvents.ALLOW_DAMAGE.register(EndResetState)
+        if (FabricLoader.getInstance().isDevelopmentEnvironment)
+            UseItemCallback.EVENT.register { player, world, hand -> when {
+                !player.getStackInHand(hand).isOf(Items.NETHER_STAR) || world.registryKey != World.END -> ActionResult.PASS
+                world !is ServerWorld -> ActionResult.SUCCESS
+                else -> {
+                    startReset(world)
+                    ActionResult.SUCCESS
+                }
+            } }
 	}
 }

@@ -2,6 +2,7 @@ package archives.tater.endothermic
 
 import archives.tater.endothermic.client.particle.registerParticleFactories
 import archives.tater.endothermic.client.render.EndothermicRenderLayers
+import archives.tater.endothermic.client.render.entity.registerEndothermicEntityRenderers
 import archives.tater.endothermic.client.render.environment.CentralEndIslandSparkleRenderer
 import archives.tater.endothermic.client.render.environment.EndResetRenderer
 import archives.tater.endothermic.payload.EndResetPayload
@@ -18,6 +19,7 @@ object EndothermicClient : ClientModInitializer {
 		// This entrypoint is suitable for setting up client-specific logic, such as rendering.
         EndothermicRenderLayers.init()
         registerParticleFactories()
+        registerEndothermicEntityRenderers()
 
         WorldRenderEvents.AFTER_ENTITIES.register(CentralEndIslandSparkleRenderer)
         ClientTickEvents.END_WORLD_TICK.register(CentralEndIslandSparkleRenderer)

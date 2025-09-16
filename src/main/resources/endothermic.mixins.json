@@ -15,6 +15,7 @@
     "indestructible.ItemStackMixin",
     "portals.EndGatewayBlockEntityInvoker",
     "portals.EndPortalBlockMixin",
+    "reset.EnderDragonFightMixin",
     "reset.ServerWorldMixin"
   ],
   "injectors": {
