@@ -103,9 +103,8 @@ class EnchantmentGenerator(
                 )
                 addNonListEffect(
                     EndothermicEnchantments.MOTION_PARTICLES,
-                    MotionParticlesEnchantmentEffect(constant(8f), speedPredicate.build())
+                    MotionParticlesEnchantmentEffect(constant(4f), speedPredicate.build())
                 )
-                // TODO verify
                 addEffect(
                     EndothermicEnchantments.REPLACE_DAMAGE_TYPE,
                     damageTypes[EndothermicDamageTypes.DASH_ATTACK],

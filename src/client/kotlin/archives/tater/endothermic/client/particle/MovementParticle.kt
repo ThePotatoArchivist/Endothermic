@@ -19,7 +19,7 @@ class MovementParticle(clientWorld: ClientWorld, x: Double, y: Double, z: Double
 
     init {
         scale = 0.25f
-        maxAge = 3
+        maxAge = 5
         gravityStrength = 0.0f
     }
 
