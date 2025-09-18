@@ -9,6 +9,7 @@ import net.minecraft.client.render.LightmapTextureManager
 import net.minecraft.client.render.VertexConsumer
 import net.minecraft.client.world.ClientWorld
 import net.minecraft.util.math.MathHelper
+import net.minecraft.util.math.MathHelper.TAU
 import org.joml.Quaternionf
 import org.joml.Vector3f
 
@@ -16,6 +17,8 @@ class MovementParticle(clientWorld: ClientWorld, x: Double, y: Double, z: Double
     : SpriteBillboardParticle(clientWorld, x, y, z) {
 
     private val direction = Vector3f(vx.toFloat(), vy.toFloat(), vz.toFloat()).normalize()
+    private val length = 0.75f * MathHelper.sqrt((vx * vx + vy * vy + vz * vz).toFloat())
+    private val rotation = random.nextFloat() * TAU
 
     init {
         scale = 0.25f
@@ -32,6 +35,7 @@ class MovementParticle(clientWorld: ClientWorld, x: Double, y: Double, z: Double
 
         val quaternionf = Quaternionf()
         quaternionf.rotateTo(Vector3f(1f, 0f, 0f), direction)
+        quaternionf.rotateX(rotation)
         render(vertexConsumer, camera, quaternionf, tickProgress)
         quaternionf.rotateY(MathHelper.PI)
         render(vertexConsumer, camera, quaternionf, tickProgress)
