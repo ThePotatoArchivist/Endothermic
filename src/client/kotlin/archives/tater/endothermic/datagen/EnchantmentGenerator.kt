@@ -7,6 +7,8 @@ import archives.tater.endothermic.enchantment.entityeffect.AddVelocityEnchantmen
 import archives.tater.endothermic.registry.EndothermicDamageTypes
 import archives.tater.endothermic.registry.EndothermicEnchantments
 import archives.tater.endothermic.registry.EndothermicItems
+import archives.tater.endothermic.util.damageSourcePredicate
+import archives.tater.endothermic.util.entityPredicate
 import archives.tater.endothermic.util.get
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider
@@ -16,7 +18,7 @@ import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.EnchantmentLevelBasedValue.constant
 import net.minecraft.enchantment.effect.DamageImmunityEnchantmentEffect
 import net.minecraft.enchantment.effect.EnchantmentEffectTarget
-import net.minecraft.enchantment.effect.value.AddEnchantmentEffect
+import net.minecraft.enchantment.effect.value.MultiplyEnchantmentEffect
 import net.minecraft.loot.condition.AllOfLootCondition
 import net.minecraft.loot.condition.DamageSourcePropertiesLootCondition
 import net.minecraft.loot.condition.EntityPropertiesLootCondition
@@ -24,9 +26,7 @@ import net.minecraft.loot.condition.LootCondition
 import net.minecraft.loot.context.LootContext
 import net.minecraft.predicate.NumberRange
 import net.minecraft.predicate.TagPredicate
-import net.minecraft.predicate.entity.DamageSourcePredicate
 import net.minecraft.predicate.entity.EntityFlagsPredicate
-import net.minecraft.predicate.entity.EntityPredicate
 import net.minecraft.predicate.entity.MovementPredicate
 import net.minecraft.registry.*
 import net.minecraft.registry.entry.RegistryEntryList
@@ -56,7 +56,7 @@ class EnchantmentGenerator(
                 registerable.register(key, Enchantment.builder(definition).apply(init).build(key.value))
             }
 
-            val speedPredicate = EntityPredicate.Builder.create().apply {
+            val speedPredicate = entityPredicate {
                 flags(EntityFlagsPredicate.Builder.create().flying(true))
                 movement(MovementPredicate.speed(NumberRange.DoubleRange.atLeast(24.0)))
             }
@@ -77,25 +77,25 @@ class EnchantmentGenerator(
                     DamageImmunityEnchantmentEffect.INSTANCE,
                     AllOfLootCondition.builder(
                         thisSpeedCondition,
-                        DamageSourcePropertiesLootCondition.builder(DamageSourcePredicate.Builder.create().apply {
+                        DamageSourcePropertiesLootCondition.builder(damageSourcePredicate {
                             tag(TagPredicate.unexpected(EndothermicDamageTypes.BYPASSES_DASH))
                         })
                     )
                 )
-                // TODO protection is capped at 0
                 addEffect(
-                    EnchantmentEffectComponentTypes.DAMAGE_PROTECTION,
-                    AddEnchantmentEffect(constant(-25f)),
+                    EndothermicEnchantments.DAMAGE_TAKEN,
+                    MultiplyEnchantmentEffect(constant(2f)),
                     AllOfLootCondition.builder(
-                        thisSpeedCondition,
-                        DamageSourcePropertiesLootCondition.builder(DamageSourcePredicate.Builder.create().apply {
+                        EntityPropertiesLootCondition.builder(LootContext.EntityTarget.THIS, entityPredicate {
+                            flags(EntityFlagsPredicate.Builder.create().flying(true))
+                        }),
+                        DamageSourcePropertiesLootCondition.builder(damageSourcePredicate {
                             tag(TagPredicate.expected(EndothermicDamageTypes.BYPASSES_DASH))
                         })
                     )
                 )
-                // TODO post attack doesn't check attacker armor
                 addEffect(
-                    EnchantmentEffectComponentTypes.POST_ATTACK,
+                    EndothermicEnchantments.POST_ATTACK,
                     EnchantmentEffectTarget.ATTACKER,
                     EnchantmentEffectTarget.VICTIM,
                     AddVelocityEnchantmentEntityEffect(constant(2f)),
@@ -111,7 +111,6 @@ class EnchantmentGenerator(
                     damageTypes[EndothermicDamageTypes.DASH_ATTACK],
                     attackerSpeedCondition
                 )
-                // TODO not working
                 addEffect(
                     EndothermicEnchantments.VELOCITY_SCALED_DAMAGE,
                     VelocityScaledDamageEnchantmentEffect(constant(1.25f), minMultiplier = constant(1f)),

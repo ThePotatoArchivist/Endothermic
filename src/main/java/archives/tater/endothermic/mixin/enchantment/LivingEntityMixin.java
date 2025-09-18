@@ -1,11 +1,17 @@
 package archives.tater.endothermic.mixin.enchantment;
 
 import archives.tater.endothermic.registry.EndothermicEnchantments;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.llamalad7.mixinextras.sugar.Local;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
+import org.apache.commons.lang3.mutable.MutableFloat;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -29,5 +35,24 @@ public abstract class LivingEntityMixin extends Entity {
             if (effect == null) return;
             effect.tick((LivingEntity) (Object) this, level);
         });
+    }
+
+    @ModifyReturnValue(
+            method = "modifyAppliedDamage",
+            at = @At("TAIL")
+    )
+    private float modifyDamageTaken(float original, @Local(argsOnly = true) DamageSource source) {
+        if (!(getWorld() instanceof ServerWorld world)) return original;
+        var damage = new MutableFloat(original);
+
+        EnchantmentHelper.forEachEnchantment((LivingEntity) (Object) this, (enchantment, level, context) -> {
+            Enchantment.applyEffects(
+                    enchantment.value().getEffect(EndothermicEnchantments.DAMAGE_TAKEN),
+                    Enchantment.createEnchantedDamageLootContext(world, level, this, source),
+                    effect -> damage.setValue(effect.apply(level, getRandom(), damage.floatValue()))
+            );
+        });
+
+        return damage.floatValue();
     }
 }

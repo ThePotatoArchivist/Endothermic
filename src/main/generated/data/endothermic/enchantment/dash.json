@@ -4,6 +4,39 @@
     "translate": "enchantment.endothermic.dash"
   },
   "effects": {
+    "endothermic:damage_taken": [
+      {
+        "effect": {
+          "type": "minecraft:multiply",
+          "factor": 2.0
+        },
+        "requirements": {
+          "condition": "minecraft:all_of",
+          "terms": [
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "flags": {
+                  "is_flying": true
+                }
+              }
+            },
+            {
+              "condition": "minecraft:damage_source_properties",
+              "predicate": {
+                "tags": [
+                  {
+                    "expected": true,
+                    "id": "endothermic:bypasses_dash"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ],
     "endothermic:motion_particles": {
       "condition": {
         "flags": {
@@ -17,6 +50,30 @@
       },
       "count": 8.0
     },
+    "endothermic:post_attack": [
+      {
+        "affected": "victim",
+        "effect": {
+          "type": "endothermic:add_velocity",
+          "multiplier": 2.0
+        },
+        "enchanted": "attacker",
+        "requirements": {
+          "condition": "minecraft:entity_properties",
+          "entity": "attacker",
+          "predicate": {
+            "flags": {
+              "is_flying": true
+            },
+            "movement": {
+              "speed": {
+                "min": 24.0
+              }
+            }
+          }
+        }
+      }
+    ],
     "endothermic:replace_damage_type": [
       {
         "effect": "endothermic:dash_attack",
@@ -90,68 +147,6 @@
               }
             }
           ]
-        }
-      }
-    ],
-    "minecraft:damage_protection": [
-      {
-        "effect": {
-          "type": "minecraft:add",
-          "value": -25.0
-        },
-        "requirements": {
-          "condition": "minecraft:all_of",
-          "terms": [
-            {
-              "condition": "minecraft:entity_properties",
-              "entity": "this",
-              "predicate": {
-                "flags": {
-                  "is_flying": true
-                },
-                "movement": {
-                  "speed": {
-                    "min": 24.0
-                  }
-                }
-              }
-            },
-            {
-              "condition": "minecraft:damage_source_properties",
-              "predicate": {
-                "tags": [
-                  {
-                    "expected": true,
-                    "id": "endothermic:bypasses_dash"
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      }
-    ],
-    "minecraft:post_attack": [
-      {
-        "affected": "victim",
-        "effect": {
-          "type": "endothermic:add_velocity",
-          "multiplier": 2.0
-        },
-        "enchanted": "attacker",
-        "requirements": {
-          "condition": "minecraft:entity_properties",
-          "entity": "attacker",
-          "predicate": {
-            "flags": {
-              "is_flying": true
-            },
-            "movement": {
-              "speed": {
-                "min": 24.0
-              }
-            }
-          }
         }
       }
     ]

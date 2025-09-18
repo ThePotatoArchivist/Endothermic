@@ -5,7 +5,7 @@
   "mixins": [
     "EnderDragonFightAccessor",
     "bossbar.EnderDragonFightMixin",
-    "enchantment.EnchantmentMixin",
+    "enchantment.EnchantmentHelperMixin",
     "enchantment.LivingEntityMixin",
     "enchantment.PlayerEntityMixin",
     "gateways.AbstractBlockMixin",
