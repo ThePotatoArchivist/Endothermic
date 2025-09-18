@@ -3,6 +3,7 @@
   "package": "archives.tater.endothermic.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "DragonEggMixin",
     "EnderDragonFightAccessor",
     "bossbar.EnderDragonFightMixin",
     "enchantment.EnchantmentHelperMixin",

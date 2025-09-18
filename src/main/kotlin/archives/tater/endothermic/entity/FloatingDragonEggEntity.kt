@@ -5,7 +5,6 @@ import archives.tater.endothermic.registry.EndothermicTrackedDataHandlers
 import archives.tater.endothermic.util.getValue
 import archives.tater.endothermic.util.registerTrackedData
 import archives.tater.endothermic.util.setValue
-import net.minecraft.block.Blocks
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.LazyEntityReference
@@ -28,7 +27,7 @@ class FloatingDragonEggEntity(type: EntityType<out FloatingDragonEggEntity>, wor
 
     constructor(world: World, pos: BlockPos, crystals: List<EndCrystalEntity>) : this(EndothermicEntities.FLOATING_DRAGON_EGG, world) {
         setPosition(pos.toBottomCenterPos())
-        world.setBlockState(pos, Blocks.AIR.defaultState)
+        world.removeBlock(pos, false)
         this.crystals = crystals.map { LazyEntityReference(it.uuid) }
     }
 
