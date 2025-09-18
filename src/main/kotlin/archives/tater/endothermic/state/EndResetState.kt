@@ -14,6 +14,7 @@ import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.boss.dragon.EnderDragonFight
 import net.minecraft.entity.damage.DamageSource
 import net.minecraft.entity.decoration.EndCrystalEntity
+import net.minecraft.entity.mob.MobEntity
 import net.minecraft.network.packet.s2c.play.PositionFlag
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.server.world.ServerWorld
@@ -53,6 +54,7 @@ class EndResetState(resetTicks: Int = -1) : PersistentState() {
         fun resetEnd(world: ServerWorld) {
             for (entity in world.iterateEntities()) {
                 if (!entity.isLiving || entity.type.isIn(EndothermicEntities.END_NATIVE)) continue
+                if (entity is MobEntity && !entity.isPersistent && !entity.cannotDespawn()) continue
                 if (entity is ServerPlayerEntity) {
                     entity.teleportTo(entity.getRespawnTarget(false, TeleportTarget.NO_OP))
                     continue
