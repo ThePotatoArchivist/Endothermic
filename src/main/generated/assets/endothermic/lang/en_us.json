@@ -1,5 +1,8 @@
 {
+  "bossbar.endothermic.end_crystals": "End Crystals",
   "death.attack.endothermic.dash": "%s was splattered by %s",
   "death.attack.endothermic.dash.item": "%s was splattered by %s using %s",
+  "enchantment.endothermic.dash": "Dash",
+  "enchantment.endothermic.dash.desc": "At high glide speeds, doubles wall & fall damage, negates all other types of damage, and treats melee attacks as projectile attacks",
   "tag.item.endothermic.indestructible": "Indestructible"
 }

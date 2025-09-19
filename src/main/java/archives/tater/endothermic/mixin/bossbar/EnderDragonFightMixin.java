@@ -1,5 +1,6 @@
 package archives.tater.endothermic.mixin.bossbar;
 
+import archives.tater.endothermic.Endothermic;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.entity.boss.BossBar;
@@ -22,7 +23,7 @@ public class EnderDragonFightMixin {
     @Shadow
     private int endCrystalsAlive;
     @Unique
-    private final ServerBossBar endCrystalBossbar = new ServerBossBar(Text.of("End Crystals"), BossBar.Color.PURPLE, BossBar.Style.NOTCHED_10); // TODO translation
+    private final ServerBossBar endCrystalBossbar = new ServerBossBar(Text.translatable(Endothermic.END_CRYSTALS_BOSSBAR), BossBar.Color.PURPLE, BossBar.Style.NOTCHED_10); // TODO translation
 
     @Inject(
             method = "tick",

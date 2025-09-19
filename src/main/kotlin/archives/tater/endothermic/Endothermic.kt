@@ -25,6 +25,8 @@ object Endothermic : ModInitializer {
     @JvmField
     val logger = LoggerFactory.getLogger(MOD_ID)
 
+    const val END_CRYSTALS_BOSSBAR = "bossbar.endothermic.end_crystals"
+
     @JvmStatic
     fun isDragonKilled(world: ServerWorld) = (world.enderDragonFight as EnderDragonFightAccessor?)?.dragonKilled ?: false
 
