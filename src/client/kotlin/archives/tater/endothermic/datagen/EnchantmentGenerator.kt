@@ -19,10 +19,8 @@ import net.minecraft.enchantment.EnchantmentLevelBasedValue.constant
 import net.minecraft.enchantment.effect.DamageImmunityEnchantmentEffect
 import net.minecraft.enchantment.effect.EnchantmentEffectTarget
 import net.minecraft.enchantment.effect.value.MultiplyEnchantmentEffect
-import net.minecraft.loot.condition.AllOfLootCondition
-import net.minecraft.loot.condition.DamageSourcePropertiesLootCondition
-import net.minecraft.loot.condition.EntityPropertiesLootCondition
-import net.minecraft.loot.condition.LootCondition
+import net.minecraft.entity.EntityType
+import net.minecraft.loot.condition.*
 import net.minecraft.loot.context.LootContext
 import net.minecraft.predicate.NumberRange
 import net.minecraft.predicate.TagPredicate
@@ -99,7 +97,14 @@ class EnchantmentGenerator(
                     EnchantmentEffectTarget.ATTACKER,
                     EnchantmentEffectTarget.VICTIM,
                     AddVelocityEnchantmentEntityEffect(constant(2f)),
-                    attackerSpeedCondition
+                    AllOfLootCondition.builder(
+                        attackerSpeedCondition,
+                        InvertedLootCondition.builder(
+                            EntityPropertiesLootCondition.builder(LootContext.EntityTarget.THIS, entityPredicate {
+                                type(Registries.ENTITY_TYPE, EntityType.ENDERMAN)
+                            })
+                        )
+                    )
                 )
                 addNonListEffect(
                     EndothermicEnchantments.MOTION_PARTICLES,
@@ -108,6 +113,11 @@ class EnchantmentGenerator(
                 addEffect(
                     EndothermicEnchantments.REPLACE_DAMAGE_TYPE,
                     damageTypes[EndothermicDamageTypes.DASH_ATTACK],
+                    attackerSpeedCondition
+                )
+                addEffect(
+                    EndothermicEnchantments.PROXY_DAMAGE_SOURCE,
+                    EntityType.ARROW,
                     attackerSpeedCondition
                 )
                 addEffect(

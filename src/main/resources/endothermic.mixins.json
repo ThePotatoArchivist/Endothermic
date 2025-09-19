@@ -6,7 +6,6 @@
     "DragonEggMixin",
     "EnderDragonFightAccessor",
     "bossbar.EnderDragonFightMixin",
-    "dragon.AbstractSittingPhaseMixin",
     "dragon.EnderDragonEntityMixin",
     "dragon.ExplosiveProjectileEntityMixin",
     "dragon.HoldingPatternPhaseMixin",

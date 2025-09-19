@@ -59,6 +59,40 @@
         },
         "enchanted": "attacker",
         "requirements": {
+          "condition": "minecraft:all_of",
+          "terms": [
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "attacker",
+              "predicate": {
+                "flags": {
+                  "is_flying": true
+                },
+                "movement": {
+                  "speed": {
+                    "min": 24.0
+                  }
+                }
+              }
+            },
+            {
+              "condition": "minecraft:inverted",
+              "term": {
+                "condition": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "type": "minecraft:enderman"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "endothermic:proxy_damage_source": [
+      {
+        "effect": "minecraft:arrow",
+        "requirements": {
           "condition": "minecraft:entity_properties",
           "entity": "attacker",
           "predicate": {

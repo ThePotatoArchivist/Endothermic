@@ -10,6 +10,7 @@ import net.minecraft.enchantment.effect.EnchantmentEffectEntry
 import net.minecraft.enchantment.effect.EnchantmentEntityEffect
 import net.minecraft.enchantment.effect.EnchantmentValueEffect
 import net.minecraft.enchantment.effect.TargetedEnchantmentEffect
+import net.minecraft.entity.EntityType
 import net.minecraft.entity.damage.DamageType
 import net.minecraft.loot.context.LootContextTypes
 import net.minecraft.registry.Registries
@@ -58,6 +59,13 @@ object EndothermicEnchantments {
     @JvmField
     val POST_ATTACK = register<List<TargetedEnchantmentEffect<EnchantmentEntityEffect>>>("post_attack",
         TargetedEnchantmentEffect.createPostAttackCodec(EnchantmentEntityEffect.CODEC, LootContextTypes.ENCHANTED_DAMAGE).listOf()
+    )
+
+    @JvmField
+    val PROXY_DAMAGE_SOURCE = registerEntryList<EntityType<*>>(
+        "proxy_damage_source",
+        EntityType.CODEC,
+        LootContextTypes.ENCHANTED_DAMAGE
     )
 
     fun init() {
