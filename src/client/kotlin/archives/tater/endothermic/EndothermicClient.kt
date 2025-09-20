@@ -15,6 +15,8 @@ import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements
 import net.minecraft.particle.ParticleTypes
+import net.minecraft.sound.SoundCategory
+import net.minecraft.sound.SoundEvents
 import net.minecraft.util.math.MathHelper.lerp
 
 object EndothermicClient : ClientModInitializer {
@@ -41,16 +43,18 @@ object EndothermicClient : ClientModInitializer {
         ClientPlayNetworking.registerGlobalReceiver(EggTeleportPayload.ID) { payload, context ->
             val world = context.player().world
             val random = world.random
-            val pos = payload.source
-            val blockPos = payload.destination
+            val source = payload.source
+            val destination = payload.destination
+
+            world.playSoundAtBlockCenterClient(source, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.BLOCKS, 1f, 1f, true) // TODO custom sound event
 
             repeat(128) {
                 val delta = random.nextDouble()
                 world.addParticleClient(
                     ParticleTypes.PORTAL,
-                    lerp(delta, blockPos.x.toDouble(), pos.x.toDouble()) + (random.nextDouble() - 0.5) + 0.5,
-                    lerp(delta, blockPos.y.toDouble(), pos.y.toDouble()) + random.nextDouble() - 0.5,
-                    lerp(delta, blockPos.z.toDouble(), pos.z.toDouble()) + (random.nextDouble() - 0.5) + 0.5,
+                    lerp(delta, destination.x.toDouble(), source.x.toDouble()) + (random.nextDouble() - 0.5) + 0.5,
+                    lerp(delta, destination.y.toDouble(), source.y.toDouble()) + random.nextDouble() - 0.5,
+                    lerp(delta, destination.z.toDouble(), source.z.toDouble()) + (random.nextDouble() - 0.5) + 0.5,
                     ((random.nextFloat() - 0.5f) * 0.2f).toDouble(),
                     ((random.nextFloat() - 0.5f) * 0.2f).toDouble(), ((random.nextFloat() - 0.5f) * 0.2f).toDouble()
                 )

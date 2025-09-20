@@ -15,15 +15,6 @@ public abstract class HoldingPatternPhaseMixin extends AbstractPhase {
     public HoldingPatternPhaseMixin(EnderDragonEntity dragon) {
         super(dragon);
     }
-//    @Definition(id = "playerEntity", local = @Local(type = PlayerEntity.class))
-//    @Expression("playerEntity != null")
-//    @Inject(
-//            method = "tickInRange",
-//            at = @At(value = "MIXINEXTRAS:EXPRESSION", ordinal = 1)
-//    )
-//    private void useDiveAttack(ServerWorld world, CallbackInfo ci, @Local PlayerEntity player, @Local int crystals, @Local double distance) {
-//        if (player != null && )
-//    }
 
     @WrapOperation(
             method = "tickInRange",
