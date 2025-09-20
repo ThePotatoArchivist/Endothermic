@@ -4,6 +4,8 @@ package archives.tater.endothermic.util
 
 import net.fabricmc.fabric.api.attachment.v1.AttachmentTarget
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType
+import net.minecraft.block.Block
+import net.minecraft.block.BlockState
 import net.minecraft.entity.Entity
 import net.minecraft.entity.LazyEntityReference
 import net.minecraft.entity.data.DataTracker
@@ -13,7 +15,9 @@ import net.minecraft.registry.Registry
 import net.minecraft.registry.RegistryEntryLookup
 import net.minecraft.registry.RegistryKey
 import net.minecraft.registry.entry.RegistryEntry
+import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
+import net.minecraft.world.BlockView
 import net.minecraft.world.World
 import java.util.function.Function
 import kotlin.reflect.KProperty
@@ -59,3 +63,15 @@ inline fun <reified E: Entity, T: Any> registerTrackedData(handler: TrackedDataH
     DataTracker.registerData(E::class.java, handler)
 
 inline fun <reified E: Entity> LazyEntityReference<E>.resolve(world: World) = resolve(world, E::class.java)
+
+inline operator fun World.set(pos: BlockPos, state: BlockState) {
+    setBlockState(pos, state)
+}
+inline operator fun BlockView.get(pos: BlockPos): BlockState = getBlockState(pos)
+
+//context(world: World, pos: BlockPos)
+//inline operator fun <T: Comparable<T>> BlockState.set(property: Property<T>, value: T) {
+//    world[pos] = this.with(property, value)
+//}
+
+inline infix fun BlockState.isOf(block: Block) = this.isOf(block)

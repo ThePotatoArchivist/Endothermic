@@ -38,6 +38,7 @@ object Endothermic : ModInitializer {
         EndothermicDataAttachments.init()
         EndothermicParticles.init()
         EndothermicItems.init()
+        EndothermicBlocks.init()
         EndothermicTrackedDataHandlers.init()
         EndothermicEntities.init()
         EndothermicEnchantments.init()

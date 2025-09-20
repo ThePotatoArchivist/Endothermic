@@ -3,6 +3,7 @@ package archives.tater.endothermic.client.render.environment
 import archives.tater.endothermic.Endothermic
 import archives.tater.endothermic.client.render.EndothermicRenderLayers
 import archives.tater.endothermic.util.invoke
+import archives.tater.endothermic.util.minus
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientWorldEvents
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext
@@ -49,7 +50,7 @@ object CentralEndIslandSparkleRenderer : WorldRenderEvents.AfterEntities, Client
     override fun afterEntities(context: WorldRenderContext) {
         if (!shouldRender(context.world())) return
 
-        val radius = MAX_RADIUS * ((context.camera().cameraPos.subtract(0.0, 0.0, 0.0).horizontalLength() - context.worldRenderer().viewDistance * 16 - ISLAND_RADIUS) / FADE_OUT_DISTANCE).coerceAtMost(1.0).toFloat()
+        val radius = MAX_RADIUS * (((context.camera().cameraPos - SPARKLE_POS).length() - context.worldRenderer().viewDistance * 16 - ISLAND_RADIUS) / FADE_OUT_DISTANCE).coerceAtMost(1.0).toFloat()
         if (radius < 0) return
 
         val matrices = context.matrixStack()!!
