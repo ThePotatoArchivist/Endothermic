@@ -7,13 +7,16 @@ import archives.tater.endothermic.client.render.environment.CentralEndIslandSpar
 import archives.tater.endothermic.client.render.environment.EndResetRenderer
 import archives.tater.endothermic.payload.EggTeleportPayload
 import archives.tater.endothermic.payload.EndResetPayload
+import archives.tater.endothermic.registry.EndothermicBlocks
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientWorldEvents
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
+import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements
+import net.minecraft.client.render.BlockRenderLayer
 import net.minecraft.particle.ParticleTypes
 import net.minecraft.sound.SoundCategory
 import net.minecraft.sound.SoundEvents
@@ -25,6 +28,8 @@ object EndothermicClient : ClientModInitializer {
         EndothermicRenderLayers.init()
         registerParticleFactories()
         registerEndothermicEntityRenderers()
+
+        BlockRenderLayerMap.putBlock(EndothermicBlocks.GLIDE_BOOSTER, BlockRenderLayer.TRANSLUCENT)
 
         WorldRenderEvents.AFTER_ENTITIES.register(CentralEndIslandSparkleRenderer)
         ClientTickEvents.END_WORLD_TICK.register(CentralEndIslandSparkleRenderer)

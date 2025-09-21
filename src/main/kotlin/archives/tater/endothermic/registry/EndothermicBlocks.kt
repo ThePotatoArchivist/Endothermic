@@ -23,6 +23,9 @@ object EndothermicBlocks {
 
     val GLIDE_BOOSTER = register("glide_booster", ::GlideBoosterBlock) {
         noCollision()
+        strength(-1f, 3600000f)
+        dropsNothing()
+        luminance { 15 }
     }
 
     fun init() {

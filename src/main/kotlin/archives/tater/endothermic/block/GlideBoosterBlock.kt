@@ -1,6 +1,5 @@
 package archives.tater.endothermic.block
 
-import archives.tater.endothermic.Endothermic
 import archives.tater.endothermic.util.isOf
 import archives.tater.endothermic.util.sealedMapOf
 import archives.tater.endothermic.util.set
@@ -11,6 +10,7 @@ import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityCollisionHandler
 import net.minecraft.entity.LivingEntity
 import net.minecraft.server.world.ServerWorld
+import net.minecraft.sound.SoundEvents
 import net.minecraft.state.StateManager
 import net.minecraft.state.property.BooleanProperty
 import net.minecraft.state.property.EnumProperty
@@ -54,12 +54,18 @@ class GlideBoosterBlock(settings: Settings) : Block(settings) {
         handler: EntityCollisionHandler
     ) {
         if (entity !is LivingEntity || !entity.isGliding || state[ON_COOLDOWN]) return
-        Endothermic.logger.info("Boost!")
 
         val axis = state[AXIS]
 
         val axisVelocity = entity.velocity.getComponentAlongAxis(axis)
-        entity.velocity = entity.velocity.withAxis(axis, (if (axis == Axis.Y && axisVelocity > -MIN_VELOCITY) 1.0 else sign(axisVelocity)) * (abs(axisVelocity) * VELOCITY_MULTIPLIER).coerceAtLeast(MIN_VELOCITY))
+
+        val direction = if (abs(axisVelocity) <= MAX_VELOCITY_LOOKING)
+            Direction.getLookDirectionForAxis(entity, axis).direction.offset().toDouble()
+        else
+            sign(axisVelocity)
+
+        entity.velocity = entity.velocity.withAxis(axis, direction * (abs(axisVelocity) * VELOCITY_MULTIPLIER).coerceAtLeast(MIN_VELOCITY))
+        entity.playSound(SoundEvents.ENTITY_BREEZE_WIND_BURST.value())
 
         world.setBlockState(pos, state.with(ON_COOLDOWN, true))
         world.scheduleBlockTick(pos, this, COOLDOWN)
@@ -88,13 +94,14 @@ class GlideBoosterBlock(settings: Settings) : Block(settings) {
         val ON_COOLDOWN: BooleanProperty = BooleanProperty.of("on_cooldown")
 
         val OUTLINES = sealedMapOf<Axis, VoxelShape> { when (it) {
-            Axis.X -> createCuboidShape(6.0, 0.0, 0.0, 10.0, 16.0, 16.0)
-            Axis.Y -> createCuboidShape(0.0, 6.0, 0.0, 16.0, 10.0, 16.0)
-            Axis.Z -> createCuboidShape(0.0, 0.0, 6.0, 16.0, 16.0, 10.0)
+            Axis.X -> createCuboidShape(7.0, 0.0, 0.0, 9.0, 16.0, 16.0)
+            Axis.Y -> createCuboidShape(0.0, 7.0, 0.0, 16.0, 9.0, 16.0)
+            Axis.Z -> createCuboidShape(0.0, 0.0, 7.0, 16.0, 16.0, 9.0)
         } }
 
         const val MIN_VELOCITY = 2.0
         const val VELOCITY_MULTIPLIER = 1.5
+        const val MAX_VELOCITY_LOOKING = MIN_VELOCITY / VELOCITY_MULTIPLIER
         const val COOLDOWN = 4
     }
 }

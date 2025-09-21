@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "axis=x,on_cooldown=false": {
+      "model": "endothermic:block/glide_booster",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,on_cooldown=true": {
+      "model": "endothermic:block/glide_booster_active",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,on_cooldown=false": {
+      "model": "endothermic:block/glide_booster"
+    },
+    "axis=y,on_cooldown=true": {
+      "model": "endothermic:block/glide_booster_active"
+    },
+    "axis=z,on_cooldown=false": {
+      "model": "endothermic:block/glide_booster",
+      "x": 90
+    },
+    "axis=z,on_cooldown=true": {
+      "model": "endothermic:block/glide_booster_active",
+      "x": 90
+    }
+  }
+}

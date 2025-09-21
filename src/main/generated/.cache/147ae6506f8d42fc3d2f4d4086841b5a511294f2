@@ -1,1 +1,4 @@
 // 1.21.8	-999999999-01-01T00:00:00	Endothermic/Model Definitions
+af6ca3be17f25d531d85ee19fa40c9d4aece37d0 assets/endothermic/blockstates/glide_booster.json
+1737752a760c3e21845f9aac6f243d48dd7a34b7 assets/endothermic/models/block/glide_booster.json
+9a8189914877fffe706575d6c324063fc0bc1208 assets/endothermic/models/block/glide_booster_active.json

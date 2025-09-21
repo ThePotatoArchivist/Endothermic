@@ -1,0 +1,6 @@
+{
+  "parent": "endothermic:block/template_glide_booster",
+  "textures": {
+    "all": "endothermic:block/glide_booster"
+  }
+}
