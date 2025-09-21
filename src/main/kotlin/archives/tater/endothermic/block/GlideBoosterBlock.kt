@@ -5,6 +5,7 @@ import archives.tater.endothermic.util.sealedMapOf
 import archives.tater.endothermic.util.set
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
+import net.minecraft.block.PillarBlock
 import net.minecraft.block.ShapeContext
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityCollisionHandler
@@ -14,7 +15,6 @@ import net.minecraft.sound.SoundEvents
 import net.minecraft.state.StateManager
 import net.minecraft.state.property.BooleanProperty
 import net.minecraft.state.property.EnumProperty
-import net.minecraft.state.property.Properties
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
 import net.minecraft.util.math.Direction.Axis
@@ -27,16 +27,15 @@ import net.minecraft.world.tick.ScheduledTickView
 import kotlin.math.abs
 import kotlin.math.sign
 
-class GlideBoosterBlock(settings: Settings) : Block(settings) {
+class GlideBoosterBlock(settings: Settings) : PillarBlock(settings) {
     init {
         defaultState = stateManager.defaultState
-            .with(AXIS, Axis.X)
             .with(ON_COOLDOWN, false)
     }
 
     override fun appendProperties(builder: StateManager.Builder<Block, BlockState>) {
         super.appendProperties(builder)
-        builder.add(AXIS, ON_COOLDOWN)
+        builder.add(ON_COOLDOWN)
     }
 
     override fun getOutlineShape(
@@ -90,7 +89,7 @@ class GlideBoosterBlock(settings: Settings) : Block(settings) {
     }
 
     companion object {
-        val AXIS: EnumProperty<Axis> = Properties.AXIS
+        val AXIS: EnumProperty<Axis> = PillarBlock.AXIS
         val ON_COOLDOWN: BooleanProperty = BooleanProperty.of("on_cooldown")
 
         val OUTLINES = sealedMapOf<Axis, VoxelShape> { when (it) {
