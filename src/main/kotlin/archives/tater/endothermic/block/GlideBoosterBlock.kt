@@ -98,7 +98,7 @@ class GlideBoosterBlock(settings: Settings) : PillarBlock(settings) {
             Axis.Z -> createCuboidShape(0.0, 0.0, 7.0, 16.0, 16.0, 9.0)
         } }
 
-        const val MIN_VELOCITY = 2.0
+        const val MIN_VELOCITY = 3.0
         const val VELOCITY_MULTIPLIER = 1.5
         const val MAX_VELOCITY_LOOKING = MIN_VELOCITY / VELOCITY_MULTIPLIER
         const val COOLDOWN = 4
