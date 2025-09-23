@@ -2,9 +2,9 @@ package archives.tater.endothermic.datagen
 
 import archives.tater.endothermic.Endothermic
 import archives.tater.endothermic.registry.EndothermicParticles
-import com.mojang.serialization.Codec
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricCodecDataProvider
+import com.mojang.serialization.Codec
 import net.minecraft.data.DataOutput.OutputType
 import net.minecraft.particle.ParticleType
 import net.minecraft.registry.Registries

@@ -1,10 +1,10 @@
 package archives.tater.endothermic.payload
 
 import archives.tater.endothermic.Endothermic
-import io.netty.buffer.ByteBuf
 import net.minecraft.network.codec.PacketCodec
 import net.minecraft.network.packet.CustomPayload
 import net.minecraft.util.math.BlockPos
+import io.netty.buffer.ByteBuf
 
 @JvmRecord
 data class EggTeleportPayload(val source: BlockPos, val destination: BlockPos) : CustomPayload {

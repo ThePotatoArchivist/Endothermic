@@ -2,7 +2,11 @@ package archives.tater.endothermic.mixin.reset;
 
 import archives.tater.endothermic.Endothermic;
 import archives.tater.endothermic.duck.ResettableWorld;
-import com.google.common.collect.ImmutableList;
+
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+
 import net.minecraft.registry.CombinedDynamicRegistries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -14,11 +18,10 @@ import net.minecraft.world.SaveProperties;
 import net.minecraft.world.World;
 import net.minecraft.world.level.UnmodifiableLevelProperties;
 import net.minecraft.world.level.storage.LevelStorage;
+
+import com.google.common.collect.ImmutableList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;

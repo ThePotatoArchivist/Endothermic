@@ -1,20 +1,23 @@
 package archives.tater.endothermic.mixin.gateways;
 
 import archives.tater.endothermic.registry.EndothermicDataAttachments;
+
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.entity.boss.dragon.EnderDragonEntity;
-import net.minecraft.entity.boss.dragon.EnderDragonFight;
-import net.minecraft.entity.boss.dragon.EnderDragonSpawnState;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Unit;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import net.minecraft.entity.boss.dragon.EnderDragonEntity;
+import net.minecraft.entity.boss.dragon.EnderDragonFight;
+import net.minecraft.entity.boss.dragon.EnderDragonSpawnState;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Unit;
+
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 @SuppressWarnings("UnstableApiUsage")
 @Mixin(EnderDragonFight.class)

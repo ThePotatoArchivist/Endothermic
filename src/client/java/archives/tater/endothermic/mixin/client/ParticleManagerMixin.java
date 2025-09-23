@@ -1,11 +1,13 @@
 package archives.tater.endothermic.mixin.client;
 
 import archives.tater.endothermic.client.render.EndothermicRenderLayers;
+
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.client.particle.ParticleManager;
-import net.minecraft.client.particle.ParticleTextureSheet;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+
+import net.minecraft.client.particle.ParticleManager;
+import net.minecraft.client.particle.ParticleTextureSheet;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,11 +1,12 @@
 package archives.tater.endothermic.mixin.portals;
 
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Invoker;
+
 import net.minecraft.block.entity.EndGatewayBlockEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(EndGatewayBlockEntity.class)
 public interface EndGatewayBlockEntityInvoker {

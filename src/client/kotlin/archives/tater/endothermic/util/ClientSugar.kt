@@ -1,7 +1,7 @@
 package archives.tater.endothermic.util
 
-import com.mojang.blaze3d.pipeline.RenderPipeline
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider
+import com.mojang.blaze3d.pipeline.RenderPipeline
 import net.minecraft.client.render.RenderLayer.MultiPhaseParameters
 import net.minecraft.registry.RegistryKey
 import net.minecraft.registry.RegistryWrapper

@@ -5,11 +5,11 @@ import archives.tater.endothermic.duck.ResettableWorld
 import archives.tater.endothermic.entity.FloatingDragonEggEntity
 import archives.tater.endothermic.payload.EndResetPayload
 import archives.tater.endothermic.registry.EndothermicEntities
-import com.mojang.serialization.Codec
-import com.mojang.serialization.codecs.RecordCodecBuilder
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
+import com.mojang.serialization.Codec
+import com.mojang.serialization.codecs.RecordCodecBuilder
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.boss.dragon.EnderDragonFight
 import net.minecraft.entity.damage.DamageSource

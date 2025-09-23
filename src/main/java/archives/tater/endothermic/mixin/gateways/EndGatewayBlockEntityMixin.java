@@ -1,13 +1,15 @@
 package archives.tater.endothermic.mixin.gateways;
 
 import archives.tater.endothermic.registry.EndothermicDataAttachments;
+
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.block.entity.EndGatewayBlockEntity;
-import net.minecraft.world.World;
-import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.objectweb.asm.Opcodes;
+
+import net.minecraft.block.entity.EndGatewayBlockEntity;
+import net.minecraft.world.World;
 
 @Mixin(EndGatewayBlockEntity.class)
 public class EndGatewayBlockEntityMixin {
