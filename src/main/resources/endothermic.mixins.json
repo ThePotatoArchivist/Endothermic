@@ -22,7 +22,7 @@
     "portals.EndPortalBlockMixin",
     "reset.EnderDragonFightMixin",
     "reset.MinecraftServerMixin",
-    "rings.StructurePoolBasedGeneratorMixin"
+    "worldgen.StructurePoolBasedGeneratorMixin"
   ],
   "injectors": {
     "defaultRequire": 1

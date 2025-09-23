@@ -16,11 +16,6 @@ import net.minecraft.registry.tag.TagKey;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
-    @Shadow
-    public abstract Item getItem();
-
-    @Shadow
-    public abstract boolean isOf(Item item);
 
     @Shadow
     public abstract boolean isIn(TagKey<Item> tag);

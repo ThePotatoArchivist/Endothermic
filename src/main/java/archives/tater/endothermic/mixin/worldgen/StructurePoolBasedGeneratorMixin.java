@@ -1,4 +1,4 @@
-package archives.tater.endothermic.mixin.rings;
+package archives.tater.endothermic.mixin.worldgen;
 
 import archives.tater.endothermic.registry.EndothermicWorldgen;
 
@@ -20,8 +20,22 @@ public class StructurePoolBasedGeneratorMixin {
             method = "generate(Lnet/minecraft/world/gen/structure/Structure$Context;Lnet/minecraft/registry/entry/RegistryEntry;Ljava/util/Optional;ILnet/minecraft/util/math/BlockPos;ZLjava/util/Optional;ILnet/minecraft/structure/pool/alias/StructurePoolAliasLookup;Lnet/minecraft/world/gen/structure/DimensionPadding;Lnet/minecraft/structure/StructureLiquidSettings;)Ljava/util/Optional;",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/util/BlockRotation;random(Lnet/minecraft/util/math/random/Random;)Lnet/minecraft/util/BlockRotation;")
     )
-    private static BlockRotation lockRotation(BlockRotation original, @Local(argsOnly = true) RegistryEntry<StructurePool> structurePool, @Local(argsOnly = true) BlockPos pos) {
+    private static BlockRotation centerFunnelingRotation(BlockRotation original, @Local(argsOnly = true) RegistryEntry<StructurePool> structurePool, @Local(argsOnly = true) BlockPos pos) {
         if (!structurePool.isIn(EndothermicWorldgen.CENTER_FUNNELING)) return original;
+
+        // Intended to create a shape roughly like this:
+        /*
+        >  >  >  >  v  <  <  <  <
+        v  >  >  >  v  <  <  <  v
+        v  v  >  >  v  <  <  v  v
+        v  v  v  >  v  <  v  v  v
+        >  >  >  >  o  <  <  <  <
+        ^  ^  ^  >  ^  <  ^  ^  ^
+        ^  ^  >  >  ^  <  <  ^  ^
+        ^  >  >  >  ^  <  <  <  ^
+        >  >  >  >  ^  <  <  <  <
+        */
+        // moves towards a cardinal axis and then the origin
 
         var chunkPos =  new ChunkPos(pos);
 
