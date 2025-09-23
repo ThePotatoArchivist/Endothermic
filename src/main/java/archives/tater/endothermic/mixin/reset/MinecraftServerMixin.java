@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.concurrent.Executor;
 
 @Mixin(MinecraftServer.class)
-public abstract class ServerWorldMixin implements ResettableWorld {
+public abstract class MinecraftServerMixin implements ResettableWorld {
     @Shadow
     @Final
     private Map<RegistryKey<World>, ServerWorld> worlds;
