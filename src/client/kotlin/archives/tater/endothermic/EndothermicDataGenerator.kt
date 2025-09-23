@@ -20,6 +20,7 @@ object EndothermicDataGenerator : DataGeneratorEntrypoint {
             addProvider(::EntityTagGenerator)
             addProvider(::EnchantmentGenerator)
             addProvider(::EnchantmentTagGenerator)
+            addProvider(::BiomeTagGenerator)
 
             addProvider(::ModelGenerator)
             addProvider(::LangGenerator)

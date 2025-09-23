@@ -6,10 +6,9 @@
     }
   ],
   "placement": {
-    "type": "minecraft:random_spread",
-    "spacing": 4,
-    "separation": 3,
-    "spread_type": "linear",
+    "type": "endothermic:grid",
+    "grid_spacing": 16,
+    "hole_radius": 63,
     "salt": 563654
   }
 }

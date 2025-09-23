@@ -21,7 +21,8 @@
     "portals.EndGatewayBlockEntityInvoker",
     "portals.EndPortalBlockMixin",
     "reset.EnderDragonFightMixin",
-    "reset.ServerWorldMixin"
+    "reset.ServerWorldMixin",
+    "rings.StructurePoolBasedGeneratorMixin"
   ],
   "injectors": {
     "defaultRequire": 1
