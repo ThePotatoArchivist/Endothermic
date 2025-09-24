@@ -1,12 +1,11 @@
 package archives.tater.endothermic.block
 
+import archives.tater.endothermic.registry.EndothermicBlocks
+import archives.tater.endothermic.util.isIn
 import archives.tater.endothermic.util.isOf
 import archives.tater.endothermic.util.sealedMapOf
 import archives.tater.endothermic.util.set
-import net.minecraft.block.Block
-import net.minecraft.block.BlockState
-import net.minecraft.block.PillarBlock
-import net.minecraft.block.ShapeContext
+import net.minecraft.block.*
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityCollisionHandler
 import net.minecraft.entity.LivingEntity
@@ -27,7 +26,7 @@ import net.minecraft.world.tick.ScheduledTickView
 import kotlin.math.abs
 import kotlin.math.sign
 
-class GlideBoosterBlock(settings: Settings) : PillarBlock(settings) {
+class VelocititeFieldBlock(settings: Settings) : PillarBlock(settings) {
     init {
         defaultState = stateManager.defaultState
             .with(ON_COOLDOWN, false)
@@ -79,10 +78,15 @@ class GlideBoosterBlock(settings: Settings) : PillarBlock(settings) {
         neighborPos: BlockPos?,
         neighborState: BlockState,
         random: Random?
-    ): BlockState = if (!state[ON_COOLDOWN] && neighborState isOf this && state[AXIS] == neighborState[AXIS] && direction.axis != state[AXIS] && neighborState[ON_COOLDOWN]) {
-        tickView.scheduleBlockTick(pos, this, COOLDOWN)
-        state.with(ON_COOLDOWN, true)
-    } else state
+    ): BlockState = when {
+        direction.axis == state[AXIS] -> state
+        !state[ON_COOLDOWN] && neighborState isOf this && state[AXIS] == neighborState[AXIS] && neighborState[ON_COOLDOWN] -> {
+            tickView.scheduleBlockTick(pos, this, COOLDOWN)
+            state.with(ON_COOLDOWN, true)
+        }
+        !(neighborState isOf this) && !(neighborState isIn EndothermicBlocks.VELOCITITE_FIELD_BORDER) -> Blocks.AIR.defaultState
+        else -> state
+    }
 
     override fun scheduledTick(state: BlockState, world: ServerWorld, pos: BlockPos, random: Random?) {
         world[pos] = state.with(ON_COOLDOWN, false)

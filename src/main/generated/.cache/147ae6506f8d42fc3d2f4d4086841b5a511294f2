@@ -1,4 +1,7 @@
 // 1.21.8	-999999999-01-01T00:00:00	Endothermic/Model Definitions
-af6ca3be17f25d531d85ee19fa40c9d4aece37d0 assets/endothermic/blockstates/glide_booster.json
-1737752a760c3e21845f9aac6f243d48dd7a34b7 assets/endothermic/models/block/glide_booster.json
-9a8189914877fffe706575d6c324063fc0bc1208 assets/endothermic/models/block/glide_booster_active.json
+8ec82c83a8164a3d0625759977bdc6148549fbb9 assets/endothermic/blockstates/velocitite.json
+e0e5184d79393dc8994666ac08d6fe294fc4566f assets/endothermic/blockstates/velocitite_field.json
+0af2392bb9eeac0b695ef11e37cea2c9c597310a assets/endothermic/items/velocitite.json
+69882b441c13d2713c1c9c3a5c35014724c7daee assets/endothermic/models/block/velocitite.json
+7cf0ffc79bf080a17325a45f4703a13c52a81038 assets/endothermic/models/block/velocitite_field.json
+070852d69c6dca4d15815892bef3bcf9124b6ba4 assets/endothermic/models/block/velocitite_field_active.json

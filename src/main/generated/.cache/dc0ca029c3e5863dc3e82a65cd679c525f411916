@@ -1,0 +1,5 @@
+// 1.21.8	-999999999-01-01T00:00:00	Endothermic/Tags for minecraft:block
+89262fa7622d4922df1077b1b6461e05474fa5ef data/endothermic/tags/block/velocitite_field_border.json
+1d7dab3e85700f53ab68923411d005bfed778ece data/minecraft/tags/block/dragon_immune.json
+89262fa7622d4922df1077b1b6461e05474fa5ef data/minecraft/tags/block/mineable/pickaxe.json
+89262fa7622d4922df1077b1b6461e05474fa5ef data/minecraft/tags/block/needs_diamond_tool.json

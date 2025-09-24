@@ -14,6 +14,8 @@ object EndothermicDataGenerator : DataGeneratorEntrypoint {
 
 	override fun onInitializeDataGenerator(fabricDataGenerator: FabricDataGenerator) {
         fabricDataGenerator.createPack().apply {
+            addProvider(::BlockLootTableGenerator)
+            addProvider(::BlockTagGenerator)
             addProvider(::ItemTagGenerator)
             addProvider(::DamageTypeGenerator)
             addProvider(::DamageTypeTagGenerator)

@@ -29,7 +29,7 @@ object EndothermicClient : ClientModInitializer {
         registerParticleFactories()
         registerEndothermicEntityRenderers()
 
-        BlockRenderLayerMap.putBlock(EndothermicBlocks.GLIDE_BOOSTER, BlockRenderLayer.TRANSLUCENT)
+        BlockRenderLayerMap.putBlock(EndothermicBlocks.VELOCITITE_FIELD, BlockRenderLayer.TRANSLUCENT)
 
         WorldRenderEvents.AFTER_ENTITIES.register(CentralEndIslandSparkleRenderer)
         ClientTickEvents.END_WORLD_TICK.register(CentralEndIslandSparkleRenderer)

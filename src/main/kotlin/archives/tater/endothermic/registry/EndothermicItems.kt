@@ -1,6 +1,7 @@
 package archives.tater.endothermic.registry
 
 import archives.tater.endothermic.Endothermic
+import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraft.item.Items
 import net.minecraft.registry.RegistryKey
@@ -19,8 +20,12 @@ object EndothermicItems {
     private inline fun register(path: String, item: Function<Item.Settings, Item>, settings: Item.Settings.() -> Unit = {}) =
         register(Endothermic.id(path), item, settings)
 
+    private fun register(block: Block): Item = Items.register(block)
+
     private fun tagOf(id: Identifier): TagKey<Item> = TagKey.of(RegistryKeys.ITEM, id)
     private fun tagOf(path: String) = tagOf(Endothermic.id(path))
+
+    val VELOCITITE = register(EndothermicBlocks.VELOCITITE)
 
     @JvmField
     val INDESTRUCTIBLE = tagOf("indestructible")

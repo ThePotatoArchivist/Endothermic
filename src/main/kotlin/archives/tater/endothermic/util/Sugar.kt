@@ -15,6 +15,7 @@ import net.minecraft.registry.Registry
 import net.minecraft.registry.RegistryEntryLookup
 import net.minecraft.registry.RegistryKey
 import net.minecraft.registry.entry.RegistryEntry
+import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.BlockView
@@ -75,3 +76,4 @@ inline operator fun BlockView.get(pos: BlockPos): BlockState = getBlockState(pos
 //}
 
 inline infix fun BlockState.isOf(block: Block) = this.isOf(block)
+inline infix fun BlockState.isIn(tag: TagKey<Block>) = this.isIn(tag)
