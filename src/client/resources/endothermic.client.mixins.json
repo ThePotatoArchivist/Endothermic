@@ -3,8 +3,9 @@
   "package": "archives.tater.endothermic.mixin.client",
   "compatibilityLevel": "JAVA_21",
   "client": [
-    "EndGatewayBlockEntityRendererMixin",
-    "ParticleManagerMixin"
+    "EnderDragonEntityRendererMixin",
+    "ParticleManagerMixin",
+    "gateways.EndGatewayBlockEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

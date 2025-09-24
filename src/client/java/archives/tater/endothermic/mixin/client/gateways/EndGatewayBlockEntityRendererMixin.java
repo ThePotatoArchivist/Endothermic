@@ -1,4 +1,4 @@
-package archives.tater.endothermic.mixin.client;
+package archives.tater.endothermic.mixin.client.gateways;
 
 import archives.tater.endothermic.registry.EndothermicDataAttachments;
 
